@@ -2,12 +2,19 @@
 
     header( 'Content-type: text/html; charset=utf-8' );
 
-/*
- * 	Inserindo o TIME_ZONE DEFAULT da APLICACAO
- *
+/**
+ * 	Inserindo  TIME_ZONE DEFAULT da APLICACAO
  */
 
     date_default_timezone_set( "America/Sao_Paulo" );
+
+/**
+ *	Require autoload from Composer
+ *
+ */
+
+if(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php'))
+	require_once __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 /**
  * CodeIgniter
