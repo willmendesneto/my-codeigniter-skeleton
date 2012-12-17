@@ -1,7 +1,7 @@
 <?php
 
-	$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/bootstrap.css');
-	$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/bootstrap-responsive.css');
+	$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap.css');
+	$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap-responsive.css');
 	$this->set_css($this->default_theme_path.'/flexigrid/css/tablesorter.css');
 	$this->set_js_lib($this->default_theme_path.'/flexigrid/js/jquery.form.js');
 	$this->set_js_config($this->default_theme_path.'/flexigrid/js/flexigrid-add.js');

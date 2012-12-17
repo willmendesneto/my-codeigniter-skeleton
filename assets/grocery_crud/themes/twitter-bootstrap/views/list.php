@@ -41,21 +41,19 @@ if(!empty($list)){ ?>
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<?php if(!$unset_delete){?>
-								<li>
-									<a href="<?php echo $row->delete_url?>" title="<?php echo $this->l('list_delete')?> <?php echo $subject?>" class="delete-row" >
-										<i class="icon-pencil"></i>
-										<?php echo $this->l('list_delete') . ' ' . $subject; ?>
-										<span class="delete-icon"></span>
-									</a>
-								</li>
-								<?php }?>
 								<?php if(!$unset_edit){?>
 								<li>
 									<a href="<?php echo $row->edit_url?>" title="<?php echo $this->l('list_edit')?> <?php echo $subject?>" class="edit_button">
-										<i class="icon-trash"></i>
+										<i class="icon-pencil"></i>
 										<?php echo $this->l('list_edit') . ' ' . $subject; ?>
-										<span class="edit-icon"></span>
+									</a>
+								</li>
+								<?php }?>
+								<?php if(!$unset_delete){?>
+								<li>
+									<a href="<?php echo $row->delete_url?>" title="<?php echo $this->l('list_delete')?> <?php echo $subject?>" class="delete-row" >
+										<i class="icon-trash"></i>
+										<?php echo $this->l('list_delete') . ' ' . $subject; ?>
 									</a>
 								</li>
 								<?php }?>

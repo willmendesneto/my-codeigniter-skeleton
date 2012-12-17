@@ -39,12 +39,12 @@ a:hover
 				<a class="brand" href="javascript:void(0);">Grocery CRUD</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
-						<li><a href="<?php echo site_url('grocerycrud/film_management')?>" >Films</a></li>
-						<li><a href="<?php echo site_url('grocerycrud/products_management')?>" >Products</a></li>
-						<li><a href="<?php echo site_url('grocerycrud/orders_management')?>" >Orders</a></li>
-						<li><a href="<?php echo site_url('grocerycrud/employees_management')?>" >Employees</a></li>
-						<li><a href="<?php echo site_url('grocerycrud/offices_management')?>" >Offices</a></li>
-						<li><a href="<?php echo site_url('grocerycrud/customers_management')?>" >Customers</a></li>
+						<li><a href="<?php echo site_url('films')?>" >Films</a></li>
+						<li><a href="<?php echo site_url('products')?>" >Products</a></li>
+						<li><a href="<?php echo site_url('orders')?>" >Orders</a></li>
+						<li><a href="<?php echo site_url('employees')?>" >Employees</a></li>
+						<li><a href="<?php echo site_url('offices')?>" >Offices</a></li>
+						<li><a href="<?php echo site_url('customers')?>" >Customers</a></li>
 					</ul>
 				</div>
 			</div>

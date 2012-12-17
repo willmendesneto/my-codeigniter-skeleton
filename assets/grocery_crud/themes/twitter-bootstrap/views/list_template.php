@@ -1,7 +1,7 @@
 <?php
-$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/bootstrap.css');
-$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/bootstrap-responsive.css');
-$this->set_css($this->default_theme_path.'/flexigrid/css/tablesorter.css');
+$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap.min.css');
+$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap-responsive.min.css');
+$this->set_css($this->default_theme_path.'/flexigrid/css/tablesorter.min.css');
 $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 
 $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
@@ -68,49 +68,30 @@ if($success_message !== null){?>
 	</div>
 	<div id="main-table-box">
 
+		<br/>
 		<?php if(!$unset_add || !$unset_export || !$unset_print){?>
 		<div class="tDiv">
 			<?php if(!$unset_add){?>
-			<div class="tDiv2">
-				<a href="<?php echo $add_url?>" title="<?php echo $this->l('list_add'); ?> <?php echo $subject?>" class="add-anchor add_button">
-					<div class="fbutton">
-						<div>
-							<span class="add btn"><?php echo $this->l('list_add'); ?> <?php echo $subject?></span>
-						</div>
-					</div>
+ 				<a href="<?php echo $add_url?>" title="<?php echo $this->l('list_add'); ?> <?php echo $subject?>" class="add-anchor add_button btn"><!--
+				<a href="<?php echo $add_url?>" title="<?php echo $this->l('list_add'); ?> <?php echo $subject?>" class="btn"> -->
+					<?php echo $this->l('list_add'); ?> <?php echo $subject?>
 				</a>
-				<div class="btnseparator">
-				</div>
-			</div>
 			<?php }?>
-			<div class="tDiv3">
-				<?php if(!$unset_export) { ?>
-				<a class="export-anchor" data-url="<?php echo $export_url; ?>" target="_blank">
-					<div class="fbutton">
-						<div>
-							<span class="export btn"><?php echo $this->l('list_export');?></span>
-						</div>
-					</div>
+			<?php if(!$unset_export) { ?>
+				<a class="export-anchor btn" data-url="<?php echo $export_url; ?>" rel="external">
+					<?php echo $this->l('list_export');?>
 				</a>
-				<div class="btnseparator"></div>
-				<?php } ?>
-				<?php if(!$unset_print) { ?>
-				<a class="print-anchor" data-url="<?php echo $print_url; ?>">
-					<div class="fbutton">
-						<div>
-							<span class="print btn"><?php echo $this->l('list_print');?></span>
-						</div>
-					</div>
-				</a>
-				<div class="btnseparator"></div>
-				<?php }?>
-			</div>
-			<div class="clear"></div>
+			<?php } ?>
+			<?php if(!$unset_print) { ?>
+			<a class="print-anchor btn" data-url="<?php echo $print_url; ?>">
+				<?php echo $this->l('list_print');?>
+			</a>
+			<?php }?>
 		</div>
 		<?php }?>
-
+		<br/>
 		<div id="ajax_list">
-			<?php echo $list_view?>
+			<?php echo $list_view; ?>
 		</div>
 		<?php echo form_open( $ajax_list_url, 'method="post" id="filtering_form" autocomplete = "off"'); ?>
 		<div class="sDiv" id="quickSearchBox" class="span12">
