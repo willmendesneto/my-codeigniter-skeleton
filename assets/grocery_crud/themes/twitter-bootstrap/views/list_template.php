@@ -2,6 +2,7 @@
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap.min.css');
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap-responsive.min.css');
 $this->set_css($this->default_theme_path.'/flexigrid/css/tablesorter.min.css');
+
 $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 
 $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
