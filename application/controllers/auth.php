@@ -6,13 +6,12 @@ class Auth extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library(array('ion_auth', 'session', 'form_validation'));
-		$this->load->helper('url');
 
 		// Load MongoDB library instead of native db driver if required
-		$this->config->item('use_mongodb', 'ion_auth') ?
+		/*$this->config->item('use_mongodb', 'ion_auth') ?
 		$this->load->library('mongo_db') :
 
-		$this->load->database();
+		$this->load->database();*/
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 	}
