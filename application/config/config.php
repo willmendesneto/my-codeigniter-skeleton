@@ -244,30 +244,23 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = '';
+$config['cache_path'] = 'application/cache/';
 
 /*
 |--------------------------------------------------------------------------
 | Encryption Key
 |--------------------------------------------------------------------------
 |
-| If you use the Encryption class or the Session class you
-| MUST set an encryption key.  See the user guide for info.
-|
-| http://codeigniter.com/user_guide/libraries/encryption.html
-| http://codeigniter.com/user_guide/libraries/sessions.html
+| Se você usar a classe de Criptografia ou a classe Session você
+| Deve definir uma chave de criptografia. Veja o guia do usuário para maiores informações.
 |
 */
-$config['encryption_key'] = 't3s2e_9b186c435dfe085c37389ca824fb1dui';
-
+$config['encryption_key'] = 't3s2e_9b186c435dfe00dc37389ca824fb51de';
 /*
 |--------------------------------------------------------------------------
 | Session Variables
 |--------------------------------------------------------------------------
 |
-| 'sess_driver'				= the driver to load: cookie (Classic), native (PHP sessions),
-|	or your custom driver name
-| 'sess_valid_drivers'		= additional valid drivers which may be loaded
 | 'sess_cookie_name'		= the name you want for the cookie
 | 'sess_expiration'			= the number of SECONDS you want the session to last.
 |   by default sessions last 7200 seconds (two hours).  Set to zero for no expiration.
@@ -281,8 +274,6 @@ $config['encryption_key'] = 't3s2e_9b186c435dfe085c37389ca824fb1dui';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_driver']			= 'cookie';
-$config['sess_valid_drivers']	= array();
 $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;

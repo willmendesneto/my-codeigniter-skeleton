@@ -1,6 +1,7 @@
 {
     "require": {
-        "mikey179/vfsStream": "*"
+        "mikey179/vfsStream": "*",
+        "twig/twig": "1.9.1"
     },
     "require-dev": {
 		"phpunit/phpunit": "*"
