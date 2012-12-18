@@ -31,7 +31,7 @@ class Offices extends CI_Controller {
 
 	public function _example_output($output = null)
 	{
-		$this->load->view('grocery-crud/example', $output);
+		$this->load->view('templates/template', $output);
 	}
 
 }

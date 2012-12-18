@@ -39,6 +39,7 @@ a:hover
 				<a class="brand" href="javascript:void(0);">Grocery CRUD</a>
 				<div class="nav-collapse collapse">
 					<ul class="nav">
+						<li><a href="<?php echo site_url('images_examples')?>" >Images examples</a></li>
 						<li><a href="<?php echo site_url('films')?>" >Films</a></li>
 						<li><a href="<?php echo site_url('products')?>" >Products</a></li>
 						<li><a href="<?php echo site_url('orders')?>" >Orders</a></li>
