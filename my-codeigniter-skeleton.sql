@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Dez 17, 2012 as 11:59 AM
+-- Tempo de Geração: Dez 19, 2012 as 08:01 AM
 -- Versão do Servidor: 5.1.50
 -- Versão do PHP: 5.3.14
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Banco de Dados: `grocery_crud`
+-- Banco de Dados: `my-codeigniter-skeleton`
 --
 
 -- --------------------------------------------------------
@@ -345,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
 --
 
 INSERT INTO `customers` (`customerNumber`, `customerName`, `contactLastName`, `contactFirstName`, `phone`, `addressLine1`, `addressLine2`, `cityID`, `stateID`, `postalCode`, `countryID`, `salesRepEmployeeNumber`, `creditLimit`) VALUES
-(103, 'Atelier graphique', 'Schmitt', 'Carine ', '40.32.2555', '54, rue Royale', NULL, 1, 2, '44000', 1, 1370, 21000),
+(103, 'Atelier graphique', 'Schmitt', 'Carine ', '40.32.2555', '54, rue Royale', NULL, 5, 6, '44000', 2, 1370, 21000),
 (112, 'Signal Gift Stores', 'King', 'Jean', '7025551838', '8489 Strong St.', NULL, 1, 2, '83030', 1, 1166, 71800),
 (114, 'Australian Collectors, Co.', 'Ferguson', 'Peter', '03 9520 4555', '636 St Kilda Road', 'Level 3', 1, 2, '3004', 1, 1611, 117300),
 (119, 'La Rochelle Gifts', 'Labrune', 'Janine ', '40.67.8555', '67, rue des Cinquante Otages', NULL, 1, 2, '44000', 1, 1370, 118200),
@@ -355,7 +355,7 @@ INSERT INTO `customers` (`customerNumber`, `customerName`, `contactLastName`, `c
 (128, 'Blauer See Auto, Co.', 'Keitel', 'Roland', '+49 69 66 90 2555', 'Lyonerstr. 34', NULL, 1, 2, '60528', 1, 1504, 59700),
 (141, 'Euro+ Shopping Channel', 'Freyre', 'Diego ', '(91) 555 94 44', 'C/ Moralzarzal, 86', NULL, 1, 2, '28034', 1, 1370, 227600),
 (144, 'Volvo Model Replicas, Co', 'Berglund', 'Christina ', '0921-12 3555', 'BerguvsvÃ¤gen  8', NULL, 1, 2, 'S-958 22', 1, 1504, 53100),
-(145, 'Danish Wholesale Imports', 'Petersen', 'Jytte ', '31 12 3555', 'VinbÃ¦ltet 34', NULL, 1, 2, '1734', 1, 1401, 83400),
+(145, 'Danish Wholesale Imports', 'Petersen', 'Jytte ', '31 12 3555', 'VinbÃ¦ltet 34', NULL, 3, 6, '1734', 1, 1401, 83400),
 (146, 'Saveley & Henriot, Co.', 'Saveley', 'Mary ', '78.32.5555', '2, rue du Commerce', NULL, 1, 2, '69004', 1, 1337, 123900),
 (148, 'Dragon Souveniers, Ltd.', 'Natividad', 'Eric', '+65 221 7555', 'Bronz Sok.', 'Bronz Apt. 3/6 Tesvikiye', 1, 2, '079903', 1, 1621, 103800),
 (151, 'Muscle Machine Inc', 'Young', 'Jeff', '2125557413', '4092 Furth Circle', 'Suite 400', 1, 2, '10022', 1, 1286, 138500),
@@ -482,22 +482,21 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `file_url` varchar(250) CHARACTER SET utf8 NOT NULL,
   `jobTitle` varchar(50) NOT NULL,
   PRIMARY KEY (`employeeNumber`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1703 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1706 ;
 
 --
 -- Extraindo dados da tabela `employees`
 --
 
 INSERT INTO `employees` (`employeeNumber`, `lastName`, `firstName`, `extension`, `email`, `officeCode`, `file_url`, `jobTitle`) VALUES
-(1002, 'Murphy', 'Diane', 'x5800', 'dmurphy@classicmodelcars.com', '1', '', 'President'),
 (1056, 'Patterson', 'Mary', 'x4611', 'mpatterso@classicmodelcars.com', '1', '', 'VP Sales'),
 (1076, 'Firrelli', 'Jeff', 'x9273', 'jfirrelli@classicmodelcars.com', '1', '', 'VP Marketing'),
 (1088, 'Patterson', 'William', 'x4871', 'wpatterson@classicmodelcars.com', '6', '', 'Sales Manager (APAC)'),
-(1102, 'Bondur', 'Gerard', 'x5408', 'gbondur@classicmodelcars.com', '4', 'pdftest.pdf', 'Sale Manager (EMEA)'),
+(1102, 'Bondur', 'Gerard', 'x5408', 'gbondur@classicmodelcars.com', '4', '', 'Sale Manager (EMEA)'),
 (1143, 'Bow', 'Anthony', 'x5428', 'abow@classicmodelcars.com', '1', '', 'Sales Manager (NA)'),
 (1165, 'Jennings', 'Leslie', 'x3291', 'ljennings@classicmodelcars.com', '1', '', 'Sales Rep'),
 (1166, 'Thompson', 'Leslie', 'x4065', 'lthompson@classicmodelcars.com', '1', '', 'Sales Rep'),
-(1188, 'Firrelli', 'Julie', 'x2173', 'jfirrelli@classicmodelcars.com', '2', 'test-2.pdf', 'Sales Rep'),
+(1188, 'Firrellia', 'Julie', 'x2173', 'jfirrelli@classicmodelcars.com', '16', '', 'Sales Rep'),
 (1216, 'Patterson', 'Steve', 'x4334', 'spatterson@classicmodelcars.com', '2', '', 'Sales Rep'),
 (1286, 'Tseng', 'Foon Yue', 'x2248', 'ftseng@classicmodelcars.com', '3', '', 'Sales Rep'),
 (1323, 'Vanauf', 'George', 'x4102', 'gvanauf@classicmodelcars.com', '3', '', 'Sales Rep'),
@@ -511,7 +510,9 @@ INSERT INTO `employees` (`employeeNumber`, `lastName`, `firstName`, `extension`,
 (1619, 'King', 'Tom', 'x103', 'tking@classicmodelcars.com', '6', '', 'Sales Rep'),
 (1621, 'Nishi', 'Mami', 'x101', 'mnishi@classicmodelcars.com', '5', '', 'Sales Rep'),
 (1625, 'Kato', 'Yoshimi', 'x102', 'ykato@classicmodelcars.com', '5', '', 'Sales Rep'),
-(1702, 'Gerard', 'Martin', 'x2312', 'mgerard@classicmodelcars.com', '4', '', 'Sales Rep');
+(1702, 'Gerard', 'Martin', 'x2312', 'mgerard@classicmodelcars.com', '4', '', 'Sales Rep'),
+(1705, 'Florence', 'Fiorella', 'x4500', 'fiorella@gmail.com', '2', '', 'Test'),
+(1704, 'Teste', 'Teste', 'ola', 'teste@teste.com', '2', '', '');
 
 -- --------------------------------------------------------
 
@@ -523,7 +524,7 @@ CREATE TABLE IF NOT EXISTS `example_1` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=178 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=179 ;
 
 --
 -- Extraindo dados da tabela `example_1`
@@ -531,7 +532,8 @@ CREATE TABLE IF NOT EXISTS `example_1` (
 
 INSERT INTO `example_1` (`id`, `url`) VALUES
 (172, 'c360-9.jpg'),
-(176, 'b7b8-18.jpg');
+(176, 'b7b8-18.jpg'),
+(178, '15bf-untitled--1-.png');
 
 -- --------------------------------------------------------
 
@@ -544,16 +546,16 @@ CREATE TABLE IF NOT EXISTS `example_2` (
   `url` varchar(250) DEFAULT NULL,
   `priority` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=182 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=177 ;
 
 --
 -- Extraindo dados da tabela `example_2`
 --
 
 INSERT INTO `example_2` (`id`, `url`, `priority`) VALUES
-(172, 'eb4f-51.jpg', NULL),
-(173, 'ac84-52.jpg', NULL),
-(176, '7ad8-63.jpg', NULL);
+(172, 'eb4f-51.jpg', 2),
+(173, 'ac84-52.jpg', 1),
+(176, '7ad8-63.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -567,16 +569,16 @@ CREATE TABLE IF NOT EXISTS `example_3` (
   `category_id` int(11) DEFAULT NULL,
   `priority` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=180 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=175 ;
 
 --
 -- Extraindo dados da tabela `example_3`
 --
 
 INSERT INTO `example_3` (`id`, `url`, `category_id`, `priority`) VALUES
-(172, 'a48d-88.jpg', 22, NULL),
-(173, '5e32-89.jpg', 22, NULL),
-(174, '7628-90.jpg', 22, NULL);
+(172, 'a48d-88.jpg', 22, 1),
+(173, '5e32-89.jpg', 22, 2),
+(174, '7628-90.jpg', 22, 4);
 
 -- --------------------------------------------------------
 
@@ -590,7 +592,7 @@ CREATE TABLE IF NOT EXISTS `example_4` (
   `url` varchar(250) DEFAULT NULL,
   `priority` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=182 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=177 ;
 
 --
 -- Extraindo dados da tabela `example_4`
@@ -627,9 +629,9 @@ CREATE TABLE IF NOT EXISTS `film` (
 --
 
 INSERT INTO `film` (`film_id`, `title`, `description`, `release_year`, `rental_duration`, `rental_rate`, `length`, `replacement_cost`, `rating`, `special_features`, `last_update`) VALUES
-(1, 'ACADEMY DINOSAUR', '<p>A Epic Drama of a Feminist And a Mad Scientist who must Battle a Teacher in The Canadian Rockies</p>', 2006, 6, '0.99', 86, '20.99', 'PG', 'Deleted Scenes,Behind the Scenes', '2006-02-15 00:03:42'),
+(1, 'ACADEMY DINOSAUR', '<p>\r\n	A Epic Drama of a Feminist And a Mad Scientist who must Battle a Teacher in The Canadian Rockies</p>\r\n', 2006, 6, '0.99', 86, '20.99', 'PG', 'Deleted Scenes,Behind the Scenes', '2012-12-16 15:34:48'),
 (2, 'ACE GOLDFINGER', 'A Astounding Epistle of a Database Administrator And a Explorer who must Find a Car in Ancient China', 2006, 3, '4.99', 48, '12.99', 'G', 'Trailers,Deleted Scenes', '2006-02-15 00:03:42'),
-(3, 'ADAPTATION HOLES', '<p>\r\n	A Astounding Reflection of a Lumberjack And a Car who must Sink a Lumberjack in A Baloon Factory</p>\r\n', 2006, 7, '2.99', 50, '18.99', 'PG-13', 'Trailers,Deleted Scenes', '2012-12-14 13:15:10'),
+(3, 'ADAPTATION HOLES', 'A Astounding Reflection of a Lumberjack And a Car who must Sink a Lumberjack in A Baloon Factory', 2006, 7, '2.99', 50, '18.99', 'NC-17', 'Trailers,Deleted Scenes', '2006-02-15 00:03:42'),
 (4, 'AFFAIR PREJUDICE', 'A Fanciful Documentary of a Frisbee And a Lumberjack who must Chase a Monkey in A Shark Tank', 2006, 5, '2.99', 117, '26.99', 'G', 'Commentaries,Behind the Scenes', '2006-02-15 00:03:42'),
 (5, 'AFRICAN EGG', 'A Fast-Paced Documentary of a Pastry Chef And a Dentist who must Pursue a Forensic Psychologist in The Gulf of Mexico', 2006, 6, '2.99', 130, '22.99', 'G', 'Deleted Scenes', '2006-02-15 00:03:42'),
 (6, 'AGENT TRUMAN', 'A Intrepid Panorama of a Robot And a Boy who must Escape a Sumo Wrestler in Ancient China', 2006, 3, '2.99', 169, '17.99', 'PG', 'Deleted Scenes', '2006-02-15 00:03:42'),
@@ -2114,7 +2116,7 @@ INSERT INTO `film_actor` (`actor_id`, `film_id`, `priority`) VALUES
 (18, 917, 0),
 (18, 944, 0),
 (19, 2, 0),
-(19, 3, 1),
+(19, 3, 0),
 (19, 144, 0),
 (19, 152, 0),
 (19, 182, 0),
@@ -2258,7 +2260,7 @@ INSERT INTO `film_actor` (`actor_id`, `film_id`, `priority`) VALUES
 (23, 935, 0),
 (23, 981, 0),
 (23, 997, 0),
-(24, 3, 2),
+(24, 3, 0),
 (24, 83, 0),
 (24, 112, 0),
 (24, 126, 0),
@@ -3327,7 +3329,7 @@ INSERT INTO `film_actor` (`actor_id`, `film_id`, `priority`) VALUES
 (63, 944, 0),
 (63, 945, 0),
 (63, 981, 0),
-(64, 3, 3),
+(64, 3, 0),
 (64, 10, 0),
 (64, 37, 0),
 (64, 87, 0),
@@ -4987,7 +4989,7 @@ INSERT INTO `film_actor` (`actor_id`, `film_id`, `priority`) VALUES
 (122, 957, 0),
 (122, 961, 0),
 (122, 998, 0),
-(123, 3, 4),
+(123, 3, 0),
 (123, 43, 0),
 (123, 67, 0),
 (123, 105, 0),
@@ -9149,6 +9151,46 @@ INSERT INTO `film_category` (`film_id`, `category_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `groups`
+--
+
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Extraindo dados da tabela `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+(1, 'admin', 'Administrator'),
+(2, 'members', 'General User');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `login_attempts`
+--
+
+CREATE TABLE IF NOT EXISTS `login_attempts` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ip_address` varbinary(16) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `time` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Extraindo dados da tabela `login_attempts`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `offices`
 --
 
@@ -9163,19 +9205,22 @@ CREATE TABLE IF NOT EXISTS `offices` (
   `postalCode` varchar(15) NOT NULL,
   `territory` varchar(10) NOT NULL,
   PRIMARY KEY (`officeCode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Extraindo dados da tabela `offices`
 --
 
 INSERT INTO `offices` (`officeCode`, `city`, `phone`, `addressLine1`, `addressLine2`, `state`, `country`, `postalCode`, `territory`) VALUES
+(1, 'San Francisco, California', '+1 650 219 4782', '100 Market Street', 'teste', 'CA', 'USA', '94080', 'NA'),
 (2, 'Boston', '+1 215 837 0825', '1550 Court Place', 'Suite 102', 'MA', 'USA', '02107', 'NA'),
 (3, 'NYC', '+1 212 555 3000', '523 East 53rd Street', 'apt. 5A', 'NY', 'USA', '10022', 'NA'),
 (4, 'Paris', '+33 14 723 4404', '43 Rue Jouffroy D', '', '', 'France', '75017', 'EMEA'),
 (5, 'Tokyo', '+81 33 224 5000', '4-1 Kioicho', NULL, 'Chiyoda-Ku', 'Japan', '102-8578', 'Japan'),
 (6, 'Sydney', '+61 2 9264 2451', '5-11 Wentworth Avenue', 'Floor #2', NULL, 'Australia', 'NSW 2010', 'APAC'),
-(7, 'London', '+44 20 7877 2041', '25 Old Broad Street', 'Level 7', NULL, 'UK', 'EC2N 1HN', 'EMEA');
+(7, 'London', '+44 20 7877 2041', '25 Old Broad Street', 'Level 7', NULL, 'UK', 'EC2N 1HN', 'EMEA'),
+(16, 'dsihdasdsuai', 'uihsduihduisa', 'uidhsiudhsau', 'iudshuihdusi', 'NY', 'gdshugdsyu', '1000', 'hidshuids'),
+(17, 'test', 'test', 'test', 'test', 'ba', 'test', '9090', 'test');
 
 -- --------------------------------------------------------
 
@@ -12218,7 +12263,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`orderNumber`, `orderDate`, `requiredDate`, `shippedDate`, `status`, `comments`, `customerNumber`) VALUES
-(10100, '2003-01-06 00:00:00', '2003-01-13 00:00:00', '2003-01-10 00:00:00', 'Shipped', NULL, 363),
+(10100, '2003-01-06 00:00:00', '2003-01-13 00:00:00', '2003-01-10 00:00:00', 'Disputed', NULL, 363),
 (10101, '2003-01-09 00:00:00', '2003-01-18 00:00:00', '2003-01-11 00:00:00', 'Shipped', 'Check on availability.', 128),
 (10102, '2003-01-10 00:00:00', '2003-01-18 00:00:00', '2003-01-14 00:00:00', 'Shipped', NULL, 181),
 (10103, '2003-01-29 00:00:00', '2003-02-07 00:00:00', '2003-02-02 00:00:00', 'Shipped', NULL, 121),
@@ -12889,13 +12934,11 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`productCode`, `productName`, `productLine`, `productScale`, `productVendor`, `productDescription`, `quantityInStock`, `buyPrice`, `MSRP`) VALUES
-('S10_1678', '1969 Harley Davidson Ultimate Chopper', 'Motorcycles', '1:10', 'Min Lin Diecast', 'This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.', 7933, 48.81, 95.7),
 ('S10_1949', '1952 Alpine Renault 1300', 'Classic Cars', '1:10', 'Classic Metal Creations', 'Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.', 7305, 98.58, 214.3),
 ('S10_2016', '1996 Moto Guzzi 1100i', 'Motorcycles', '1:10', 'Highway 66 Mini Classics', 'Official Moto Guzzi logos and insignias, saddle bags located on side of motorcycle, detailed engine, working steering, working suspension, two leather seats, luggage rack, dual exhaust pipes, small saddle bag located on handle bars, two-tone paint with chrome accents, superior die-cast detail , rotating wheels , working kick stand, diecast metal with plastic parts and baked enamel finish.', 6625, 68.99, 118.94),
 ('S10_4698', '2003 Harley-Davidson Eagle Drag Bike', 'Motorcycles', '1:10', 'Red Start Diecast', 'Model features, official Harley Davidson logos and insignias, detachable rear wheelie bar, heavy diecast metal with resin parts, authentic multi-color tampo-printed graphics, separate engine drive belts, free-turning front fork, rotating tires and rear racing slick, certificate of authenticity, detailed engine, display stand\r\n, precision diecast replica, baked enamel finish, 1:10 scale model, removable fender, seat and tank cover piece for displaying the superior detail of the v-twin engine', 5582, 91.02, 193.66),
 ('S10_4757', '1972 Alfa Romeo GTA', 'Classic Cars', '1:10', 'Motor City Art Classics', 'Features include: Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.', 3252, 85.68, 136),
 ('S10_4962', '1962 LanciaA Delta 16V', 'Classic Cars', '1:10', 'Second Gear Diecast', 'Features include: Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.', 6791, 103.42, 147.74),
-('S12_1099', '1968 Ford Mustang', 'Classic Cars', '1:12', 'Autoart Studio Design', 'Hood, doors and trunk all open to reveal highly detailed interior features. Steering wheel actually turns the front wheels. Color dark green.', 68, 95.34, 194.57),
 ('S12_1108', '2001 Ferrari Enzo', 'Classic Cars', '1:12', 'Second Gear Diecast', 'Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.', 3619, 95.59, 207.8),
 ('S12_1666', '1958 Setra Bus', 'Trucks and Buses', '1:12', 'Welly Diecast Productions', 'Model features 30 windows, skylights & glare resistant glass, working steering system, original logos', 1579, 77.9, 136.67),
 ('S12_2823', '2002 Suzuki XREO', 'Motorcycles', '1:12', 'Unimax Art Galleries', 'Official logos and insignias, saddle bags located on side of motorcycle, detailed engine, working steering, working suspension, two leather seats, luggage rack, dual exhaust pipes, small saddle bag located on handle bars, two-tone paint with chrome accents, superior die-cast detail , rotating wheels , working kick stand, diecast metal with plastic parts and baked enamel finish.', 9997, 66.27, 150.62),
@@ -12930,7 +12973,9 @@ INSERT INTO `products` (`productCode`, `productName`, `productLine`, `productSca
 ('S18_3140', '1903 Ford Model A', 'Vintage Cars', '1:18', 'Unimax Art Galleries', 'Features opening trunk,  working steering system', 3913, 68.3, 136.59),
 ('S18_3232', '1992 Ferrari 360 Spider red', 'Classic Cars', '1:18', 'Unimax Art Galleries', 'his replica features opening doors, superb detail and craftsmanship, working steering system, opening forward compartment, opening rear trunk with removable spare, 4 wheel independent spring suspension as well as factory baked enamel finish.', 8347, 77.9, 169.34),
 ('S18_3233', '1985 Toyota Supra', 'Classic Cars', '1:18', 'Highway 66 Mini Classics', 'This model features soft rubber tires, working steering, rubber mud guards, authentic Ford logos, detailed undercarriage, opening doors and hood, removable split rear gate, full size spare mounted in bed, detailed interior with opening glove box', 7733, 57.01, 107.57),
-('S18_3259', 'Collectable Wooden Train', 'Trains', '1:18', 'Carousel DieCast Legends', 'Hand crafted wooden toy train set is in about 1:18 scale, 25 inches in total length including 2 additional carts, of actual vintage train. This antique style wooden toy train model set is all hand-assembled with 100% wood.', 6450, 67.56, 100.84),
+('TESTE', 'TESTE', 'TESTE', '1:15', 'Test', '<p>\r\n	hsadjdusaihdisabdisahjdnsjakdnkjsa ioudas ouiha sui dhui asoasodiusadhiuas</p>\r\n', 1000, 100.5, 100.5),
+('lksdjoi', 'jdshjid', 'hjidshij', 'ihdsih', 'idhsidsui', 'idshiuhdsuid', 100, 100, 100),
+('S01_1717', 'TEST', 'TEST', '1:10', 'TEST', 'TEST', 1000, 1000, 1000),
 ('S18_3278', '1969 Dodge Super Bee', 'Classic Cars', '1:18', 'Min Lin Diecast', 'This replica features opening doors, superb detail and craftsmanship, working steering system, opening forward compartment, opening rear trunk with removable spare, 4 wheel independent spring suspension as well as factory baked enamel finish.', 1917, 49.05, 80.41),
 ('S18_3320', '1917 Maxwell Touring Car', 'Vintage Cars', '1:18', 'Exoto Designs', 'Features Gold Trim, Full Size Spare Tire, Chrome Trim, Chrome Grille, Opening Hood, Opening Doors, Opening Trunk, Detailed Engine, Working Steering System', 7913, 57.54, 99.21),
 ('S18_3482', '1976 Ford Gran Torino', 'Classic Cars', '1:18', 'Gearbox Collectibles', 'Highly detailed 1976 Ford Gran Torino "Starsky and Hutch" diecast model. Very well constructed and painted in red and white patterns.', 9127, 73.49, 146.99),
@@ -12998,7 +13043,8 @@ INSERT INTO `products` (`productCode`, `productName`, `productLine`, `productSca
 ('S700_3962', 'The Queen Mary', 'Ships', '1:700', 'Welly Diecast Productions', 'Exact replica. Wood and Metal. Many extras including rigging, long boats, pilot house, anchors, etc. Comes with three masts, all square-rigged.', 5088, 53.63, 99.31),
 ('S700_4002', 'American Airlines: MD-11S', 'Planes', '1:700', 'Second Gear Diecast', 'Polished finish. Exact replia with official logos and insignias and retractable wheels', 8820, 36.27, 74.03),
 ('S72_1253', 'Boeing X-32A JSF', 'Planes', '1:72', 'Motor City Art Classics', '10" Wingspan with retractable landing gears.Comes with pilot', 4857, 32.77, 49.66),
-('S72_3212', 'Pont Yacht', 'Ships', '1:72', 'Unimax Art Galleries', 'Measures 38 inches Long x 33 3/4 inches High. Includes a stand.\r\nMany extras including rigging, long boats, pilot house, anchors, etc. Comes with 2 masts, all square-rigged', 414, 33.3, 54.6);
+('S72_3212', 'Pont Yacht', 'Ships', '1:72', 'Unimax Art Galleries', 'Measures 38 inches Long x 33 3/4 inches High. Includes a stand.\r\nMany extras including rigging, long boats, pilot house, anchors, etc. Comes with 2 masts, all square-rigged', 414, 33.3, 54.6),
+('S17_1717', 'TESTE 2012,2', 'Classic cars', '1:12', 'Motor', '<p>\r\n	hdsiudhsa dasod hauhsd o shduihasiudhus id</p>\r\n', 1010, 10.5, 100.5);
 
 -- --------------------------------------------------------
 
@@ -13024,3 +13070,58 @@ INSERT INTO `state` (`state_id`, `state_title`, `countryID`) VALUES
 (5, 'Florida', 2),
 (6, 'California', 2),
 (7, 'Washington', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ip_address` varbinary(16) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(80) NOT NULL,
+  `salt` varchar(40) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `activation_code` varchar(40) DEFAULT NULL,
+  `forgotten_password_code` varchar(40) DEFAULT NULL,
+  `forgotten_password_time` int(11) unsigned DEFAULT NULL,
+  `remember_code` varchar(40) DEFAULT NULL,
+  `created_on` int(11) unsigned NOT NULL,
+  `last_login` int(11) unsigned DEFAULT NULL,
+  `active` tinyint(1) unsigned DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `company` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Extraindo dados da tabela `users`
+--
+
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
+(1, '\0\0', 'administrator', '59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4', '9462e8eee0', 'admin@admin.com', '', NULL, NULL, '9d029802e28cd9c768e8e62277c0df49ec65c48c', 1268889823, 1355876552, 1, 'Admin', 'istrator', 'ADMIN', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `users_groups`
+--
+
+CREATE TABLE IF NOT EXISTS `users_groups` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` mediumint(8) unsigned NOT NULL,
+  `group_id` mediumint(8) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Extraindo dados da tabela `users_groups`
+--
+
+INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+(1, 1, 1),
+(2, 1, 2);
