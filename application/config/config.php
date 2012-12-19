@@ -39,7 +39,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://projects/my-codeigniter-skeleton/';
+$config['base_url']	= 'http://codeigniter.dev/';
 
 /*
 |--------------------------------------------------------------------------
@@ -351,7 +351,7 @@ $config['csrf_exclude_uris'] = array();
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-$config['compress_output'] = TRUE;
+$config['compress_output'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -363,7 +363,7 @@ $config['compress_output'] = TRUE;
 | code less readable.
 |
 */
-$config['minify_output'] = TRUE;
+$config['minify_output'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------

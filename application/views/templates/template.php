@@ -10,18 +10,18 @@
     <meta name="viewport" content="width=device-width">
 
 
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/twitter-bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/twitter-bootstrap/css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/twitter-bootstrap/css/style.css">
+    <link rel="stylesheet" href="/assets/twitter-bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/twitter-bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/assets/twitter-bootstrap/css/style.css">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/twitter-bootstrap/js/libs/jquery-1.8.0.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="/assets/twitter-bootstrap/js/libs/jquery-1.8.0.min.js"><\/script>')</script>
 
-    <script src="<?php echo base_url(); ?>assets/twitter-bootstrap/js/libs/bootstrap/bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/twitter-bootstrap/js/libs/bootstrap/transition.js"></script>
-    <script src="<?php echo base_url(); ?>assets/twitter-bootstrap/js/libs/bootstrap/collapse.js"></script>
-    <script src="<?php echo base_url(); ?>assets/twitter-bootstrap/js/script.js"></script>
-    <script src="<?php echo base_url(); ?>assets/twitter-bootstrap/js/libs/modernizr-2.6.1.custom.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap.min.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/transition.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/collapse.js"></script>
+    <script src="/assets/twitter-bootstrap/js/script.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/modernizr-2.6.1.custom.js"></script>
 
     <?php
     if(!empty($css_files)){
