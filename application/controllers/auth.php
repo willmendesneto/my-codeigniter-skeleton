@@ -5,13 +5,16 @@ class Auth extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library(array('ion_auth', 'session', 'form_validation'));
+		$this->load->library('ion_auth');
+		$this->load->library('session');
+		$this->load->library('form_validation');
+		$this->load->helper('url');
 
 		// Load MongoDB library instead of native db driver if required
-		/*$this->config->item('use_mongodb', 'ion_auth') ?
+		$this->config->item('use_mongodb', 'ion_auth') ?
 		$this->load->library('mongo_db') :
 
-		$this->load->database();*/
+		$this->load->database();
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 	}
@@ -19,6 +22,7 @@ class Auth extends CI_Controller {
 	//redirect if needed, otherwise display the user list
 	function index()
 	{
+
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
@@ -27,7 +31,7 @@ class Auth extends CI_Controller {
 		elseif (!$this->ion_auth->is_admin())
 		{
 			//redirect them to the home page because they must be an administrator to view this
-			redirect($this->config->item('base_url'), 'refresh');
+			redirect('/', 'refresh');
 		}
 		else
 		{
@@ -66,7 +70,7 @@ class Auth extends CI_Controller {
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect($this->config->item('base_url'), 'refresh');
+				redirect('/', 'refresh');
 			}
 			else
 			{
@@ -104,8 +108,9 @@ class Auth extends CI_Controller {
 		//log the user out
 		$logout = $this->ion_auth->logout();
 
-		//redirect them back to the page they came from
-		redirect('auth', 'refresh');
+		//redirect them to the login page
+		$this->session->set_flashdata('message', $this->ion_auth->messages());
+		redirect('auth/login', 'refresh');
 	}
 
 	//change password
@@ -187,14 +192,28 @@ class Auth extends CI_Controller {
 				'id' => 'email',
 			);
 
+			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
+				$this->data['identity_label'] = 'Username';	
+			}
+			else
+			{
+				$this->data['identity_label'] = 'Email';	
+			}
+			
+			
+
 			//set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			$this->load->view('auth/forgot_password', $this->data);
 		}
 		else
 		{
+			// get identity for that email
+			$config_tables = $this->config->item('tables', 'ion_auth');
+			$identity = $this->db->where('email', $this->input->post('email'))->limit('1')->get($config_tables['users'])->row();
+
 			//run the forgotten password method to email an activation code to the user
-			$forgotten = $this->ion_auth->forgotten_password($this->input->post('email'));
+			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
 
 			if ($forgotten)
 			{
@@ -592,6 +611,117 @@ class Auth extends CI_Controller {
 
 		$this->load->view('auth/edit_user', $this->data);
 	}
+
+	// create a new group
+	function create_group()
+	{
+		$this->data['title'] = "Create Group";
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		{
+			redirect('auth', 'refresh');
+		}
+
+		//validate form input
+		$this->form_validation->set_rules('group_name', 'Group name', 'required|alpha_dash|xss_clean');
+		$this->form_validation->set_rules('description', 'Description', 'xss_clean');
+
+		if ($this->form_validation->run() == TRUE)
+		{
+			$new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('description'));
+			if($new_group_id)
+			{
+				// check to see if we are creating the group
+				// redirect them back to the admin page
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect("auth", 'refresh');
+			}
+		}
+		else
+		{
+			//display the create group form
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+			$this->data['group_name'] = array(
+				'name'  => 'group_name',
+				'id'    => 'group_name',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('group_name'),
+			);
+			$this->data['description'] = array(
+				'name'  => 'description',
+				'id'    => 'description',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('description'),
+			);
+
+			$this->load->view('auth/create_group', $this->data);
+		}
+	}
+
+	//edit a group
+	function edit_group($id)
+	{
+		// bail if no group id given
+		if(!$id || empty($id))
+		{
+			redirect('auth', 'refresh');
+		}
+
+		$this->data['title'] = "Edit Group";
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		{
+			redirect('auth', 'refresh');
+		}
+
+		$group = $this->ion_auth->group($id)->row();
+
+		//validate form input
+		$this->form_validation->set_rules('group_name', 'Group name', 'required|alpha_dash|xss_clean');
+		$this->form_validation->set_rules('group_description', 'Group Description', 'xss_clean');
+
+		if (isset($_POST) && !empty($_POST))
+		{
+			if ($this->form_validation->run() === TRUE)
+			{
+				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['group_description']);
+
+				if($group_update)
+				{
+					$this->session->set_flashdata('message', "Group Saved");
+				}
+				else
+				{
+					$this->session->set_flashdata('message', $this->ion_auth->errors());
+				}
+				redirect("auth", 'refresh');
+			}
+		}
+
+		//set the flash data error message if there is one
+		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+		//pass the user to the view
+		$this->data['group'] = $group;
+
+		$this->data['group_name'] = array(
+			'name'  => 'group_name',
+			'id'    => 'group_name',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('group_name', $group->name),
+		);
+		$this->data['group_description'] = array(
+			'name'  => 'group_description',
+			'id'    => 'group_description',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('group_description', $group->description),
+		);
+
+		$this->load->view('auth/edit_group', $this->data);
+	}
+
 
 	function _get_csrf_nonce()
 	{

@@ -1,9 +1,9 @@
 {
     "require": {
         "mikey179/vfsStream": "*",
-        "twig/twig": "1.9.1"
-    },
-    "require-dev": {
-		"phpunit/phpunit": "*"
-	}
+        "twig/twig": "1.12.*@dev",
+        "EHER/PHPUnit": "dev-master",
+		"phpunit/phpunit": "*",
+		"sensio/buzz-bundle": "dev-master"
+    }
 }

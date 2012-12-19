@@ -154,6 +154,20 @@ class Ion_auth_mongodb_model extends CI_Model {
 	 */
 	protected $error_end_delimiter;
 
+	/**
+	 * caching of users and their groups
+	 *
+	 * @var array
+	 */
+	public $_cache_user_in_group = array();
+
+	/**
+	 * caching of groups
+	 *
+	 * @var array
+	 */
+	protected $_cache_groups = array();
+
 	// ------------------------------------------------------------------------
 
 	/**
@@ -166,7 +180,17 @@ class Ion_auth_mongodb_model extends CI_Model {
 		$this->load->config('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
-		$this->load->library('session');
+
+		//Load the session, CI2 as a library, CI3 uses it as a driver
+		if (substr(CI_VERSION, 0, 1) == '2') 
+		{
+			$this->load->library('session');
+		}
+		else
+		{
+			$this->load->driver('session');
+		}
+		
 		$this->lang->load('ion_auth');
 
 		// Initialize MongoDB collection names
@@ -574,7 +598,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		}
 
 		$this->trigger_events('extra_where');
-
+		$username = new MongoRegex('/^'.$username.'$/i');
 		return count($this->mongo_db
 			->where('username', $username)
 			->get($this->collections['users'])) > 0;
@@ -597,7 +621,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		}
 
 		$this->trigger_events('extra_where');
-
+		$email = new MongoRegex('/^'.$email.'$/i');
 		return count($this->mongo_db
 			->where('email', $email)
 			->get($this->collections['users'])) > 0;
@@ -1900,6 +1924,29 @@ class Ion_auth_mongodb_model extends CI_Model {
 	// ------------------------------------------------------------------------
 
 	/**
+	 * Return messages as an array, langified or not
+	 **/
+	public function messages_array($langify = TRUE)
+	{
+		if ($langify)
+		{
+			$_output = array();
+			foreach ($this->messages as $message)
+			{
+				$messageLang = $this->lang->line($message) ? $this->lang->line($message) : '##' . $message . '##';
+				$_output[] = $this->message_start_delimiter . $messageLang . $this->message_end_delimiter;
+			}
+			return $_output;
+		}
+		else
+		{
+			return $this->messages;
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
 	 * Sets an error message
 	 */
 	public function set_error($error)
@@ -1923,6 +1970,29 @@ class Ion_auth_mongodb_model extends CI_Model {
 		}
 
 		return $_output;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Return errors as an array, langified or not
+	 **/
+	public function errors_array($langify = TRUE)
+	{
+		if ($langify)
+		{
+			$_output = array();
+			foreach ($this->errors as $error)
+			{
+				$errorLang = $this->lang->line($error) ? $this->lang->line($error) : '##' . $error . '##';
+				$_output[] = $this->error_start_delimiter . $errorLang . $this->error_end_delimiter;
+			}
+			return $_output;
+		}
+		else
+		{
+			return $this->errors;
+		}
 	}
 
 	// ------------------------------------------------------------------------

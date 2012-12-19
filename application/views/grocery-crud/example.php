@@ -54,6 +54,7 @@ a:hover
 
 	<div style='height:20px;'></div>
 	<div>
+		<!-- {% extends 'templates/template.html.twig' %} -->
 		<?php echo $output; ?>
 	</div>
 
