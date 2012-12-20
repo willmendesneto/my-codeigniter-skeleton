@@ -17,9 +17,23 @@
     <script src="/assets/twitter-bootstrap/js/libs/jquery-1.8.3.min.js"></script>
 
     <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap.min.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/transition.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/collapse.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-transition.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-collapse.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-transition.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-alert.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-modal.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-dropdown.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-scrollspy.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-tab.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-popover.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-button.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-collapse.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-carousel.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-typeahead.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-affix.js"></script>
     <script src="/assets/twitter-bootstrap/js/libs/modernizr-2.6.1.custom.js"></script>
+    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/application.js"></script>
 
     <?php
     if(!empty($css_files)){
@@ -49,21 +63,27 @@
                 <a class="brand" href="javascript:void(0);">Grocery CRUD</a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li class="dropdown"><a href="<?php echo site_url('images_examples')?>"  class="dropdown-toggle" data-toggle="dropdown">Images examples</a>
+                        <li class="dropdown"><a href="javascript:void(0);"  class="dropdown-toggle" data-toggle="dropdown">Images examples</a>
                             <ul class="dropdown-menu">
-                                <li class=""><a href="<?php echo site_url('images_examples/example1')?>"><i class="icon-share"></i>Example 1 - Simple</a></li>
-                                <li class=""><a href="<?php echo site_url('images_examples/example2')?>"><i class="icon-tasks"></i>Example 2 - Ordering</a></li>
-                                <li class=""><a href="<?php echo site_url('images_examples/example3/22')?>"><i class="icon-tasks"></i>Example 3 - With group id</a></li>
-                                <li class=""><a href="<?php echo site_url('images_examples/example4')?>"><i class="icon-tasks"></i>Example 4 - Images with title</a></li>
-                                <li class=""><a href="<?php echo site_url('images_examples/simple_photo_gallery')?>"><i class="icon-tasks"></i>Simple Photo Gallery</a></li>
+                                <li class=""><a href="/images_examples/example1"><i class="icon-share"></i>Example 1 - Simple</a></li>
+                                <li class=""><a href="/images_examples/example2"><i class="icon-tasks"></i>Example 2 - Ordering</a></li>
+                                <li class=""><a href="/images_examples/example3/22"><i class="icon-tasks"></i>Example 3 - With group id</a></li>
+                                <li class=""><a href="/images_examples/example4"><i class="icon-tasks"></i>Example 4 - Images with title</a></li>
+                                <li class=""><a href="/images_examples/simple_photo_gallery"><i class="icon-tasks"></i>Simple Photo Gallery</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo site_url('films')?>" >Films</a></li>
-                        <li><a href="<?php echo site_url('products')?>" >Products</a></li>
-                        <li><a href="<?php echo site_url('orders')?>" >Orders</a></li>
-                        <li><a href="<?php echo site_url('employees')?>" >Employees</a></li>
-                        <li><a href="<?php echo site_url('offices')?>" >Offices</a></li>
-                        <li><a href="<?php echo site_url('customers')?>" >Customers</a></li>
+                        <li class="dropdown"><a href="javascript:void(0);"  class="dropdown-toggle" data-toggle="dropdown">Grocery CRUD</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/films" >Films</a></li>
+                                <li><a href="/products" >Products</a></li>
+                                <li><a href="/orders" >Orders</a></li>
+                                <li><a href="/employees" >Employees</a></li>
+                                <li><a href="/offices" >Offices</a></li>
+                                <li><a href="/customers" >Customers</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/testtwig" >Twig template enginner for PHP</a></li>
+                        <li><a href="/auth" >Codeigniter Ion Auth</a></li>
                     </ul>
                 </div>
             </div>
@@ -71,9 +91,12 @@
     </div>
 
     <div class="container">
-        <?php echo (!is_null($output)) ? $output : ''; ?>
+        <?php
+        echo (isset($output) and !is_null($output)) ? $output : '';
+        if(isset($page))
+            $this->load->view($page);
+        ?>
 
-        <!-- {% block container_content %}{% endblock %} -->
         <hr>
         <footer>
             <p>&copy; Company 2012</p>

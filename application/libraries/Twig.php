@@ -1,60 +1,88 @@
 <?php if (!defined('BASEPATH')) {exit('No direct script access allowed');}
 
-class Twig
-{
-	private $CI;
-	private $_twig;
-	private $_template_dir;
-	private $_cache_dir;
+class Twig {
 
-	/**
-	 * Constructor
-	 *
-	 */
-	function __construct($debug = false)
-	{
+    /**
+     * Referência da instância da classe CodeIgniter
+     *
+     * @var object
+     */
+    protected $CI;
 
-	    $this->CI =& get_instance();
-	    $this->CI->config->load('twig');
+    /**
+     * Referência da instância da classe TWIG
+     *
+     * @var object
+     */
+    protected $_twig;
 
-	    ini_set('include_path',
-            ini_get('include_path') . PATH_SEPARATOR . APPPATH . 'libraries/Twig');
-            require_once (string) "Autoloader" . EXT;
+    /**
+     * Diretório de templates da aplicação
+     *
+     * @var string
+     */
+    protected $_template_dir;
 
-            log_message('debug', "Twig Autoloader Loaded");
+    /**
+     * Diretório do cache dos templates da aplicação
+     *
+     * @var string
+     */
+    protected $_cache_dir;
 
-            Twig_Autoloader::register();
+    /***
+     * Construtor da classe
+     *
+     * @param bool $debug verifica o valor do atributo DEBUG para a classe de template TWIG
+     * @return
+     */
+    function __construct($debug = false)
+    {
+        $this->CI =& get_instance();
+        $this->CI->config->load('twig');
 
-            $this->_template_dir = $this->CI->config->item('template_dir');
-            $this->_cache_dir = $this->CI->config->item('cache_dir');
+        log_message('debug', "Twig Autoloader Loaded");
 
-            $loader = new Twig_Loader_Filesystem($this->_template_dir);
+        \Twig_Autoloader::register();
 
-            $this->_twig = new Twig_Environment($loader, array(
-                'cache' => $this->_cache_dir,
-                'debug' => $debug,
-            ));
+        $this->_template_dir = $this->CI->config->item('template_dir');
+        $this->_cache_dir = $this->CI->config->item('cache_dir');
+        $loader = new \Twig_Loader_Filesystem($this->_template_dir);
 
-	}
+        $this->_twig = new \Twig_Environment($loader, array(
+            'cache' => $this->_cache_dir,
+            'debug' => $debug,
+        ));
 
-	public function render($template, $data = array()) {
+    }
 
-            $template = $this->_twig->loadTemplate($template);
+    /**
+     * Renderiza o template
+     *
+     * @param string $template nome do template
+     * @param array $data valores a serem passados ao template
+     * @return void
+     */
+    public function render($template, $data = array()) {
+        $template = $this->_twig->loadTemplate($template);
+        return $template->render($data);
+    }
 
-            return $template->render($data);
-	}
+    /**
+     * Renderiza o template verificando o tempo gasto de execução para renderização
+     *
+     * @param string $template nome do template
+     * @param array $data valores a serem passados ao template
+     * @return void
+     */
+    public function display($template, $data = array()) {
+        $template = $this->_twig->loadTemplate($template);
+        /* elapsed_time and memory_usage */
+        $data['elapsed_time'] = $this->CI->benchmark->elapsed_time('total_execution_time_start', 'total_execution_time_end');
+        $memory = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2) . 'MB';
+        $data['memory_usage'] = $memory;
 
-        public function display($template, $data = array()) {
+        $template->display($data);
+    }
 
-            $template = $this->_twig->loadTemplate($template);
-
-	    /* elapsed_time and memory_usage */
-            $data['elapsed_time'] = $this->CI->benchmark->elapsed_time('total_execution_time_start', 'total_execution_time_end');
-            $memory = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2) . 'MB';
-            $data['memory_usage'] = $memory;
-
-            $template->display($data);
-	}
 }
-
-?>

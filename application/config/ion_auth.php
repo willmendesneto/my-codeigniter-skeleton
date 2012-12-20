@@ -6,7 +6,7 @@
 | -------------------------------------------------------------------------
 | If set to TRUE, Ion Auth will use MongoDB as its database backend.
 |
-| If you use MongoDB there are two external dependencies that have to be 
+| If you use MongoDB there are two external dependencies that have to be
 | integrated with your project:
 |   CodeIgniter MongoDB Active Record Library - http://github.com/alexbilbie/codeigniter-mongodb-library/tree/v2
 |   CodeIgniter MongoDB Session Library - http://github.com/sepehr/ci-mongodb-session
@@ -17,10 +17,11 @@ $config['use_mongodb'] = FALSE;
 | -------------------------------------------------------------------------
 | MongoDB Collection.
 | -------------------------------------------------------------------------
-| Setup the mongodb docs using the following command: 
+| Setup the mongodb docs using the following command:
 | $ mongorestore sql/mongo
 |
 */
+
 $config['collections']['users']          = 'users';
 $config['collections']['groups']         = 'groups';
 $config['collections']['login_attempts'] = 'login_attempts';
@@ -31,6 +32,7 @@ $config['collections']['login_attempts'] = 'login_attempts';
 | -------------------------------------------------------------------------
 | Database table names.
 */
+
 $config['tables']['users']           = 'users';
 $config['tables']['groups']          = 'groups';
 $config['tables']['users_groups']    = 'users_groups';
@@ -42,6 +44,7 @@ $config['tables']['login_attempts']  = 'login_attempts';
  | Joins from users.id
  | Joins from groups.id
  */
+
 $config['join']['users']  = 'user_id';
 $config['join']['groups'] = 'group_id';
 
@@ -66,6 +69,7 @@ $config['join']['groups'] = 'group_id';
  | Becareful how high you set max_rounds, I would do your own testing on how long it takes
  | to encrypt with x rounds.
  */
+
 $config['hash_method']    = 'sha1';	// IMPORTANT: Make sure this is set to either sha1 or bcrypt
 $config['default_rounds'] = 8;		// This does not apply if random_rounds is set to true
 $config['random_rounds']  = FALSE;
@@ -108,9 +112,7 @@ $config['forgot_password_expiration'] = 0; 				// The number of seconds after wh
  | 	  array  = Manually set your email config settings
  */
 $config['use_ci_email'] = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
-$config['email_config'] = array(
-	'mailtype' => 'html',
-);
+$config['email_config'] = array('mailtype' => 'html');
 
 /*
  | -------------------------------------------------------------------------
