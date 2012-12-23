@@ -1,14 +1,15 @@
 
 <?php
-$column_width = (int)( 80 / count($columns));
+//$column_width = (int)( 80 / count($columns));
 
 if(!empty($list)){ ?>
-<div class="bDiv" >
-	<table cellspacing="0" cellpadding="0" border="0" id="flex1"  class="table table-bordered">
+<div class="bDiv" ><!--
+	<table cellspacing="0" cellpadding="0" border="0" id="flex1"  class="table table-bordered tablesorter"> -->
+	<table cellspacing="0" cellpadding="0" border="0"  class="table table-bordered tablesorter">
 		<thead>
 			<tr class="hDiv">
 				<?php foreach($columns as $column){?>
-				<th width="<?php echo $column_width?>%">
+				<th width="<?php //echo $column_width.'%'?>">
 					<div class="text-left field-sorting <?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?><?php echo $order_by[1]?><?php }?>"
 						rel="<?php echo $column->field_name?>">
 						<?php echo $column->display_as?>
@@ -16,10 +17,8 @@ if(!empty($list)){ ?>
 				</th>
 				<?php }?>
 				<?php if(!$unset_delete || !$unset_edit || !empty($actions)){?>
-				<th align="left" abbr="tools" axis="col1" class="" width="20%">
-					<div class="text-right">
+				<th class="no-sorter" width="10%">
 						<?php echo $this->l('list_actions'); ?>
-					</div>
 				</th>
 				<?php }?>
 			</tr>
@@ -28,7 +27,7 @@ if(!empty($list)){ ?>
 			<?php foreach($list as $num_row => $row){ ?>
 			<tr  <?php if($num_row % 2 == 1){?>class="erow"<?php }?>>
 				<?php foreach($columns as $column){?>
-				<td width="<?php echo $column_width?>%" class="<?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?>sorted<?php }?>">
+				<td width="<?php //echo $column_width.'%'?>" class="<?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?>sorted<?php }?>">
 					<div class="text-left"><?php echo $row->{$column->field_name} != '' ? $row->{$column->field_name} : '&nbsp;' ; ?></div>
 				</td>
 				<?php }?>
@@ -85,5 +84,5 @@ if(!empty($list)){ ?>
 		</table>
 	</div>
 <?php }else{ ?>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $this->l('list_no_items'); ?><br/><br/>
+	<br/><?php echo $this->l('list_no_items'); ?><br/><br/>
 <?php }?>

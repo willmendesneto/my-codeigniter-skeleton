@@ -1,7 +1,11 @@
 <?php
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap.min.css');
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap-responsive.min.css');
-$this->set_css($this->default_theme_path.'/flexigrid/css/tablesorter.min.css');
+$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/tablesorter.min.css');
+$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/style.css');
+
+
+
 
 $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 
@@ -12,7 +16,8 @@ $this->set_js_lib($this->default_javascript_path.'/common/lazyload-min.js');
 if (!$this->is_IE7()) {
 	$this->set_js_lib($this->default_javascript_path.'/common/list.js');
 }
-
+//	JAVASCRIPTS - TWITTER BOOTSTRAP
+//$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap.min.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-transition.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-alert.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-modal.js');
@@ -27,13 +32,22 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-carouse
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-typeahead.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-affix.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/application.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/libs/modernizr-2.6.1.custom.js');
 
 
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/cookies.js');
+
+
+//	VERIFICAR O FUNCIONAMENTO DO JAVASCRIPT
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/flexigrid.js');
+
+
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.form.js');
 $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.numeric.min.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.printElement.min.js');
+
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/tablesorter/jquery.tablesorter.min.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.js');
 
 /** Fancybox */
 $this->set_css($this->default_css_path.'/jquery_plugins/fancybox/jquery.fancybox.css');
@@ -41,6 +55,12 @@ $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.fancybox.pa
 $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.easing-1.3.pack.js');
 
 /** Jquery UI */
+
+$this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
+$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/ui/'.grocery_CRUD::JQUERY_UI_JS);
+
+
+
 $this->load_js_jqueryui();
 
 ?>
@@ -104,10 +124,10 @@ if($success_message !== null){?>
 					<option value="<?php echo $column->field_name?>"><?php echo $column->display_as?>&nbsp;&nbsp;</option>
 					<?php }?>
 				</select>
-				<input type="button" class="btn" value="<?php echo $this->l('list_search');?>" id="crud_search">
+				<input type="button" class="btn btn-primary" value="<?php echo $this->l('list_search');?>" id="crud_search">
 			</div>
 			<div class="search-div-clear-button">
-				<input type="button" class="btn" value="<?php echo $this->l('list_clear_filtering');?>" id="search_clear">
+				<input type="button" class="btn btn-inverse" value="<?php echo $this->l('list_clear_filtering');?>" id="search_clear">
 			</div>
 		</div>
 		<div class="pDiv">
@@ -143,7 +163,7 @@ if($success_message !== null){?>
 				<div class="pGroup">
 					<span class="pcontrol"><?php echo $this->l('list_page'); ?> <input name="page" type="text" value="1" size="4" id="crud_page">
 						<?php echo $this->l('list_paging_of'); ?>
-						<span id="last-page-number"><?php echo ceil($total_results / $default_per_page)?></span></span>
+						<span id="last-page-number"><?php echo ceil($total_results / $default_per_page); ?></span></span>
 					</div>
 					<div class="btnseparator">
 					</div>

@@ -2,10 +2,14 @@
 
 class Offices extends CI_Controller {
 
+	/**
+	 * Construtor da classe
+	 *
+	 * @return void
+	 */
 	public function __construct()
 	{
 		parent::__construct();
-
 		$this->load->library('grocery_CRUD');
 	}
 
