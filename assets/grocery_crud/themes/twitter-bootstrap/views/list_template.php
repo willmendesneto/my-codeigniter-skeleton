@@ -2,70 +2,75 @@
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap.min.css');
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap-responsive.min.css');
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/tablesorter.min.css');
+/** Fancybox */
+$this->set_css($this->default_css_path.'/jquery_plugins/fancybox/jquery.fancybox.css');
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/style.css');
 
 $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 
+//	JAVASCRIPTS - JQUERY NOTY
 $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
 $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/config/jquery.noty.config.js');
+//	JAVASCRIPTS - JQUERY LAZY-LOAD
 $this->set_js_lib($this->default_javascript_path.'/common/lazyload-min.js');
 
 if (!$this->is_IE7()) {
 	$this->set_js_lib($this->default_javascript_path.'/common/list.js');
 }
 //	JAVASCRIPTS - TWITTER BOOTSTRAP
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap.min.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-transition.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-alert.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-modal.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-dropdown.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-scrollspy.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-tab.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-tooltip.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-popover.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-button.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-collapse.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-carousel.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-typeahead.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap-affix.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/application.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/libs/modernizr-2.6.1.custom.js');
-
-
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/cookies.js');
-
-//	VERIFICAR O FUNCIONAMENTO DO JAVASCRIPT
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/flexigrid.js');
-
-
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.form.js');
-$this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.numeric.min.js');
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.printElement.min.js');
-
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap.min.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-transition.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-alert.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-modal.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-dropdown.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-scrollspy.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-tab.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-tooltip.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-popover.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-button.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-collapse.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-carousel.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-typeahead.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/bootstrap-affix.js');
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/bootstrap/application.js');
+//	JAVASCRIPTS - MODERNIZR
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/modernizr/modernizr-2.6.1.custom.js');
+//	JAVASCRIPTS - TABLESORTER
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/tablesorter/jquery.tablesorter.min.js');
+//	JAVASCRIPTS - JQUERY-COOKIE
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/cookies.js');
+//	JAVASCRIPTS - FLEXIGRID - CONFIGURAÇÕES
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/flexigrid.js');
+//	JAVASCRIPTS - JQUERY-FORM
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.form.js');
+//	JAVASCRIPTS - JQUERY-NUMERIC
+$this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.numeric.min.js');
+//	JAVASCRIPTS - JQUERY-PRINT-ELEMENT
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.printElement.min.js');
+//	JAVASCRIPTS - JQUERY-PRINT-ELEMENT
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.js');
 
 /** Fancybox */
+//	JAVASCRIPTS - JQUERY FANCYBOX
 $this->set_css($this->default_css_path.'/jquery_plugins/fancybox/jquery.fancybox.css');
 $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.fancybox.pack.js');
+//	JAVASCRIPTS - JQUERY EASING
 $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.easing-1.3.pack.js');
 
-/** Jquery UI */
-
+//	JAVASCRIPTS - JQUERY UI
 $this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
 $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/ui/'.grocery_CRUD::JQUERY_UI_JS);
-
-
-
 $this->load_js_jqueryui();
-
 ?>
+<!-- INSERINDO O REQUIRE.JS -->
+<script data-main="<?php echo $this->default_theme_path; ?>/twitter-bootstrap/js/app/main-application" src="<?php echo $this->default_theme_path; ?>/twitter-bootstrap/js/requirejs/require.min.js"></script>
+
 <script type="text/javascript">
-var base_url = '<?php echo base_url();?>',
-subject = '<?php echo $subject?>',
-ajax_list_info_url = '<?php echo $ajax_list_info_url?>',
-unique_hash = '<?php echo $unique_hash; ?>',
-message_alert_delete = "<?php echo $this->l('alert_delete'); ?>";
+	var base_url = "<?php echo base_url();?>",
+		subject = "<?php echo $subject?>",
+		ajax_list_info_url = "<?php echo $ajax_list_info_url?>",
+		unique_hash = "<?php echo $unique_hash; ?>",
+		message_alert_delete = "<?php echo $this->l('alert_delete'); ?>";
 </script>
 <div id="hidden-operations"></div>
 <div id="report-error" class="report-div error"></div>
