@@ -3,21 +3,21 @@
 //$column_width = (int)( 80 / count($columns));
 
 if(!empty($list)){ ?>
-<div class="bDiv" ><!--
-	<table cellspacing="0" cellpadding="0" border="0" id="flex1"  class="table table-bordered tablesorter"> -->
-	<table cellspacing="0" cellpadding="0" border="0"  class="table table-bordered tablesorter">
+<div class="bDiv" >
+	<table class="table table-bordered tablesorter">
 		<thead>
-			<tr class="hDiv">
+			<tr>
 				<?php foreach($columns as $column){?>
-				<th width="<?php //echo $column_width.'%'?>">
+				<!-- <th width="<?php //echo $column_width.'%'?>"> -->
+				<th>
 					<div class="text-left field-sorting <?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?><?php echo $order_by[1]?><?php }?>"
 						rel="<?php echo $column->field_name?>">
-						<?php echo $column->display_as?>
+						<?php echo $column->display_as; ?>
 					</div>
 				</th>
 				<?php }?>
 				<?php if(!$unset_delete || !$unset_edit || !empty($actions)){?>
-				<th class="no-sorter" width="10%">
+				<th class="no-sorter">
 						<?php echo $this->l('list_actions'); ?>
 				</th>
 				<?php }?>
@@ -27,9 +27,9 @@ if(!empty($list)){ ?>
 			<?php foreach($list as $num_row => $row){ ?>
 			<tr  <?php if($num_row % 2 == 1){?>class="erow"<?php }?>>
 				<?php foreach($columns as $column){?>
-				<td width="<?php //echo $column_width.'%'?>" class="<?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?>sorted<?php }?>">
-					<div class="text-left"><?php echo $row->{$column->field_name} != '' ? $row->{$column->field_name} : '&nbsp;' ; ?></div>
-				</td>
+					<td width="<?php //echo $column_width.'%'?>" class="<?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?>sorted<?php }?>">
+						<div class="text-left"><?php echo $row->{$column->field_name} != '' ? $row->{$column->field_name} : '&nbsp;' ; ?></div>
+					</td>
 				<?php }?>
 				<?php if(!$unset_delete || !$unset_edit || !empty($actions)){?>
 				<td align="left" width="20%">
