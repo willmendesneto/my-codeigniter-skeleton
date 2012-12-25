@@ -1,33 +1,35 @@
 {% extends 'templates/template.html.twig' %}
 
+
+
 {% block content %}
   <h1>Login</h1>
   <p>Please login with your email/username and password below.</p>
   {{ title }}
 
-  <div id="infoMessage"><?php echo $message;?></div>
+  <div id="infoMessage">{{ message }}</div>
 
-  <?php echo form_open("auth/login");?>
+  {{ form_open("auth/login")|raw }}
 
   <p>
     <label for="identity">Email/Username:</label>
-    <?php echo form_input($identity);?>
+    {{ form_input( identity )|raw }}
   </p>
 
   <p>
     <label for="password">Password:</label>
-    <?php echo form_input($password);?>
+    {{ form_input( password )|raw }}
   </p>
 
   <p>
     <label for="remember">Remember Me:</label>
-    <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"');?>
+    {{ form_checkbox('remember', '1', FALSE, 'id="remember"')|raw }}
   </p>
 
 
-  <p><?php echo form_submit('submit', 'Login');?></p>
+  <p>{{ form_submit('submit', 'Login')|raw }}</p>
 
-  <?php echo form_close();?>
+  {{ form_close()|raw }}
 
   <p><a href="/testtwig/forgot_password">Forgot your password?</a></p>
 {% endblock %}

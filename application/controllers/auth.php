@@ -196,45 +196,46 @@ class Auth extends CI_Controller {
 	public function forgot_password()
 	{
 		$this->form_validation->set_rules('email', 'Email Address', 'required');
-		if ($this->form_validation->run() == false)
+		if ($this->form_validation->run())
 		{
-			//setup the input
-			$this->data['email'] = array('name' => 'email',
-				'id' => 'email',
-			);
+			// get identity for that email
+			$config_tables = $this->config->item('tables', 'ion_auth');
+			$identity = $this->db->where('email', $this->input->post('email'))->limit('1')->get($config_tables['users'])->row();
 
-			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
-				$this->data['identity_label'] = 'Username';
+			//run the forgotten password method to email an activation code to the user
+			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
+
+			if ($forgotten)
+			{
+				//if there were no errors
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
-				$this->data['identity_label'] = 'Email';
+				$this->session->set_flashdata('message', $this->ion_auth->errors());
+				redirect("auth/forgot_password", 'refresh');
 			}
-
-			//set any errors and display the form
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-			$this->data['page'] = 'auth/forgot_password';
-			$this->load->view('templates/template', $this->data);
 		}
-		// get identity for that email
-		$config_tables = $this->config->item('tables', 'ion_auth');
-		$identity = $this->db->where('email', $this->input->post('email'))->limit('1')->get($config_tables['users'])->row();
 
-		//run the forgotten password method to email an activation code to the user
-		$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
+		//setup the input
+		$this->data['email'] = array('name' => 'email',
+			'id' => 'email',
+		);
 
-		if ($forgotten)
-		{
-			//if there were no errors
-			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+		if ( $this->config->item('identity', 'ion_auth') == 'username' ){
+			$this->data['identity_label'] = 'Username';
 		}
 		else
 		{
-			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			$this->data['identity_label'] = 'Email';
 		}
+
+		//set any errors and display the form
+		$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+		$this->data['page'] = 'auth/forgot_password';
+		$this->load->view('templates/template', $this->data);
 	}
 
 	/**
@@ -267,7 +268,7 @@ class Auth extends CI_Controller {
 				$this->data['new_password'] = array(
 					'name' => 'new',
 					'id'   => 'new',
-				'type' => 'password',
+					'type' => 'password',
 					'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 				);
 				$this->data['new_password_confirm'] = array(

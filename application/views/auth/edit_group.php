@@ -15,6 +15,6 @@
             <?php echo form_input($group_description);?>
       </p>
 
-      <p><?php echo form_submit('submit', 'Save Group');?></p>
+      <p><?php echo form_submit('submit', 'Save Group', 'class="btn btn-primary"');?></p>
 
 <?php echo form_close();?>

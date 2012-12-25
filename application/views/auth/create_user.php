@@ -41,6 +41,6 @@
       </p>
 
 
-      <p><?php echo form_submit('submit', 'Create User');?></p>
+      <p><?php echo form_submit('submit', 'Create User', 'class="btn btn-primary"');?></p>
 
 <?php echo form_close();?>

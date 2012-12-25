@@ -81,7 +81,15 @@
                             </ul>
                         </li>
                         <li><a href="/testtwig" >Twig template enginner for PHP</a></li>
-                        <li><a href="/auth" >Codeigniter Ion Auth</a></li>
+                        <li class="dropdown"><a href="javascript:void(0);"  class="dropdown-toggle" data-toggle="dropdown">Codeigniter Ion Auth</a>
+                            <ul class="dropdown-menu">
+                                <li class=""><a href="/auth/login"><i class="icon-share"></i>Login</a></li>
+                                <li class=""><a href="/auth/index"><i class="icon-tasks"></i>Listagem de usuários</a></li>
+                                <li class=""><a href="/auth/create_user"><i class="icon-tasks"></i>Criar Usuário</a></li>
+                                <li class=""><a href="/auth/create_group"><i class="icon-tasks"></i>Criar Grupo de Usuários</a></li>
+                                <li class=""><a href="/auth/logout"><i class="icon-tasks"></i>Logout</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

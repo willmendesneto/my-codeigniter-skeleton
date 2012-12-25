@@ -52,8 +52,14 @@ class Twig {
         $this->_twig = new \Twig_Environment($loader, array(
             'cache' => $this->_cache_dir,
             'debug' => $debug,
+            //'auto_reload' => TRUE
         ));
 
+        foreach(get_defined_functions() as $functions) {
+            foreach($functions as $function) {
+                $this->_twig->addFunction($function, new Twig_Function_Function($function));
+            }
+        }
     }
 
     /**
@@ -83,6 +89,15 @@ class Twig {
         $data['memory_usage'] = $memory;
 
         $template->display($data);
+    }
+    /**
+     * Adiciona as funções no Twig
+     * @param string $name nome da função
+     * @return void
+     */
+    public function add_function($name)
+    {
+        $this->_twig->addFunction($name, new Twig_Function_Function($name));
     }
 
 }

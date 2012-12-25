@@ -1,6 +1,6 @@
 <h1>Deactivate User</h1>
 <p>Are you sure you want to deactivate the user '<?php echo $user->username; ?>'</p>
-	
+
 <?php echo form_open("auth/deactivate/".$user->id);?>
 
   <p>
@@ -13,6 +13,6 @@
   <?php echo form_hidden($csrf); ?>
   <?php echo form_hidden(array('id'=>$user->id)); ?>
 
-  <p><?php echo form_submit('submit', 'Submit');?></p>
+  <p><?php echo form_submit('submit', 'Submit', 'class="btn btn-primary"');?></p>
 
 <?php echo form_close();?>
