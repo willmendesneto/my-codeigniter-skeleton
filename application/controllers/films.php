@@ -30,7 +30,7 @@ class Films extends CI_Controller {
 			$this->grocery_crud->fields('title', 'description', 'actors' ,  'category' ,'release_year', 'rental_duration', 'rental_rate', 'length', 'replacement_cost', 'rating', 'special_features');
 
 			$output = $this->grocery_crud->render();
-			$this->load->view('templates/template_crud', $output);
+			$this->load->view('templates/template', $output);
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
