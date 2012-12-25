@@ -1,1 +1,0 @@
-alert('inserindo o requirejs para carregamento de arquivos!');

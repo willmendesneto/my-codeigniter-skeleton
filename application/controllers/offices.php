@@ -11,31 +11,23 @@ class Offices extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->set_theme('twitter-bootstrap');
 	}
 
 	public function index()
 	{
 		try{
-			$crud = new grocery_CRUD();
+			$this->grocery_crud->set_table('offices');
+			$this->grocery_crud->set_subject('Office');
+			$this->grocery_crud->required_fields('city');
+			$this->grocery_crud->columns('city','country','phone','addressLine1','postalCode');
 
-			$crud->set_theme('twitter-bootstrap');
-			$crud->set_table('offices');
-			$crud->set_subject('Office');
-			$crud->required_fields('city');
-			$crud->columns('city','country','phone','addressLine1','postalCode');
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
+			$output = $this->grocery_crud->render();
+			$this->load->view('templates/template', $output);
 
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
-	}
-
-	public function _example_output($output = null)
-	{
-		$this->load->view('templates/template', $output);
 	}
 
 }

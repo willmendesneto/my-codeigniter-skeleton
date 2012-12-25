@@ -11,6 +11,7 @@ class Customers extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->set_theme('twitter-bootstrap');
 	}
 
 	/*
@@ -19,37 +20,34 @@ class Customers extends CI_Controller {
 	public function index()
 	{
 			//GROCERY CRUD SETUP
-			$crud = new grocery_CRUD();
-
-			$crud->set_theme('twitter-bootstrap');
-			$crud->set_table('customers');
-			$crud->columns('customerName','contactLastName','phone','countryID','stateID','cityID');
-			$crud->display_as('salesRepEmployeeNumber','From Employeer')
+			$this->grocery_crud->set_table('customers');
+			$this->grocery_crud->columns('customerName','contactLastName','phone','countryID','stateID','cityID');
+			$this->grocery_crud->display_as('salesRepEmployeeNumber','From Employeer')
 				 ->display_as('customerName','Name')
 				 ->display_as('cityID','City/Town')
 				 ->display_as('stateID','State/Province')
 				 ->display_as('countryID','Country')
 				 ->display_as('contactLastName','Last Name');
-			$crud->set_subject('Customer');
-			$crud->set_relation('salesRepEmployeeNumber','employees','{lastName} {firstName}');
-			$crud->set_relation('countryID','country','country_title');
-			$crud->set_relation('stateID','state','state_title');
-			$crud->set_relation('cityID','city','city_title');
-			$crud->fields('customerName','contactLastName','phone','countryID','stateID','cityID');
-			$crud->required_fields('countryID','stateID','cityID');
+			$this->grocery_crud->set_subject('Customer');
+			$this->grocery_crud->set_relation('salesRepEmployeeNumber','employees','{lastName} {firstName}');
+			$this->grocery_crud->set_relation('countryID','country','country_title');
+			$this->grocery_crud->set_relation('stateID','state','state_title');
+			$this->grocery_crud->set_relation('cityID','city','city_title');
+			$this->grocery_crud->fields('customerName','contactLastName','phone','countryID','stateID','cityID');
+			$this->grocery_crud->required_fields('countryID','stateID','cityID');
 
 			//IF YOU HAVE A LARGE AMOUNT OF DATA, ENABLE THE CALLBACKS BELOW - FOR EXAMPLE ONE USER HAD 36000 CITIES AND SLOWERD UP THE LOADING PROCESS. THESE CALLBACKS WILL LOAD EMPTY SELECT FIELDS THEN POPULATE THEM AFTERWARDS
-			$crud->callback_add_field('stateID', array($this, 'empty_state_dropdown_select'));
-			$crud->callback_edit_field('stateID', array($this, 'empty_state_dropdown_select'));
-			$crud->callback_add_field('cityID', array($this, 'empty_city_dropdown_select'));
-			$crud->callback_edit_field('cityID', array($this, 'empty_city_dropdown_select'));
+			$this->grocery_crud->callback_add_field('stateID', array($this, 'empty_state_dropdown_select'));
+			$this->grocery_crud->callback_edit_field('stateID', array($this, 'empty_state_dropdown_select'));
+			$this->grocery_crud->callback_add_field('cityID', array($this, 'empty_city_dropdown_select'));
+			$this->grocery_crud->callback_edit_field('cityID', array($this, 'empty_city_dropdown_select'));
 
-			$output = $crud->render();
+			$output = $this->grocery_crud->render();
 
 			//DEPENDENT DROPDOWN SETUP
 			$dd_data = array(
 			    //GET THE STATE OF THE CURRENT PAGE - E.G LIST | ADD
-			    'dd_state' =>  $crud->getState(),
+			    'dd_state' =>  $this->grocery_crud->getState(),
 			    //SETUP YOUR DROPDOWNS
 			    //Parent field item always listed first in array, in this case countryID
 			    //Child field items need to follow in order, e.g stateID then cityID
@@ -75,8 +73,7 @@ class Customers extends CI_Controller {
 		$listingID = $this->uri->segment(4);
 
 		//LOAD GCRUD AND GET THE STATE
-		$crud = new grocery_CRUD();
-		$state = $crud->getState();
+		$state = $this->grocery_crud->getState();
 
 		//CHECK FOR A URI VALUE AND MAKE SURE ITS ON THE EDIT STATE
 		if(isset($listingID) && $state == "edit") {
@@ -120,8 +117,7 @@ class Customers extends CI_Controller {
 		$listingID = $this->uri->segment(4);
 
 		//LOAD GCRUD AND GET THE STATE
-		$crud = new grocery_CRUD();
-		$state = $crud->getState();
+		$state = $this->grocery_crud->getState();
 
 		//CHECK FOR A URI VALUE AND MAKE SURE ITS ON THE EDIT STATE
 		if(isset($listingID) && $state == "edit") {

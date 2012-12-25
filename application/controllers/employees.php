@@ -11,24 +11,21 @@ class Employees extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->set_theme('twitter-bootstrap');
 	}
 
 	public function index()
 	{
 		try{
-			$crud = new grocery_CRUD();
+			$this->grocery_crud->set_table('employees');
+			$this->grocery_crud->set_relation('officeCode','offices','city');
+			$this->grocery_crud->display_as('officeCode','Office City');
+			$this->grocery_crud->set_subject('Employee');
 
-			$crud->set_theme('twitter-bootstrap');
-			$crud->set_table('employees');
-			$crud->set_relation('officeCode','offices','city');
-			$crud->display_as('officeCode','Office City');
-			$crud->set_subject('Employee');
+			$this->grocery_crud->required_fields('lastName');
+			$this->grocery_crud->set_field_upload('file_url','assets/uploads/files');
 
-			$crud->required_fields('lastName');
-
-			$crud->set_field_upload('file_url','assets/uploads/files');
-
-			$output = $crud->render();
+			$output = $this->grocery_crud->render();
 
 			$this->_example_output($output);
 

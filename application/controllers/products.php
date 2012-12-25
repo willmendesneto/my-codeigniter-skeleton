@@ -11,22 +11,19 @@ class Products extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->set_theme('twitter-bootstrap');
 	}
 
 	public function index()
 	{
 		try{
-			$crud = new grocery_CRUD();
+			$this->grocery_crud->set_table('products');
+			$this->grocery_crud->set_subject('Product');
+			$this->grocery_crud->unset_columns('productDescription');
+			$this->grocery_crud->callback_column('buyPrice',array($this,'valueToEuro'));
 
-			$crud->set_theme('twitter-bootstrap');
-			$crud->set_table('products');
-			$crud->set_subject('Product');
-			$crud->unset_columns('productDescription');
-			$crud->callback_column('buyPrice',array($this,'valueToEuro'));
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
+			$output = $this->grocery_crud->render();
+			$this->load->view('templates/template', $output);
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
@@ -35,11 +32,6 @@ class Products extends CI_Controller {
 	public function valueToEuro($value, $row)
 	{
 		return $value.' &euro;';
-	}
-
-	public function _example_output($output = null)
-	{
-		$this->load->view('templates/template', $output);
 	}
 
 }
