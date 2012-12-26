@@ -211,7 +211,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 1;
+$config['log_threshold'] = 4;
 
 /*
 |--------------------------------------------------------------------------
@@ -256,11 +256,16 @@ $config['cache_path'] = 'application/cache/';
 |
 */
 $config['encryption_key'] = 't3s2e_9b186c435dfe00dc37389ca824fb51de';
+
+
 /*
 |--------------------------------------------------------------------------
 | Session Variables
 |--------------------------------------------------------------------------
 |
+| 'sess_driver'				= the driver to load: cookie (Classic), native (PHP sessions),
+|	or your custom driver name
+| 'sess_valid_drivers'		= additional valid drivers which may be loaded
 | 'sess_cookie_name'		= the name you want for the cookie
 | 'sess_expiration'			= the number of SECONDS you want the session to last.
 |   by default sessions last 7200 seconds (two hours).  Set to zero for no expiration.
@@ -274,9 +279,11 @@ $config['encryption_key'] = 't3s2e_9b186c435dfe00dc37389ca824fb51de';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
+$config['sess_driver']			= 'cookie';
+$config['sess_valid_drivers']	= array();
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 7200;
-$config['sess_expire_on_close']	= FALSE;
+$config['sess_expiration']		= 1800;
+$config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
@@ -311,7 +318,7 @@ $config['cookie_httponly'] 	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -363,7 +370,7 @@ $config['compress_output'] = FALSE;
 | code less readable.
 |
 */
-$config['minify_output'] = FALSE;
+$config['minify_output'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
