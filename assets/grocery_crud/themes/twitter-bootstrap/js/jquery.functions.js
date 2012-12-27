@@ -38,7 +38,7 @@ $(function() {
 				});
 			});
 			console.log(tableHeaders);
-			$(this).tablesorter({ widgets: ['zebra'], dateFormat: 'uk', noSorterClass: 'no-sorter', headers: tableHeaders });
+			$(this).tablesorter({dateFormat: 'uk', noSorterClass: 'no-sorter', headers: tableHeaders });
 		});
 	}
 

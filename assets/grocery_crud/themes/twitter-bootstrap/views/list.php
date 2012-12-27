@@ -4,7 +4,7 @@
 
 if(!empty($list)){ ?>
 <div class="bDiv" >
-	<table class="table table-bordered tablesorter">
+	<table class="table table-bordered tablesorter table-striped">
 		<thead>
 			<tr>
 				<?php foreach($columns as $column){?>
