@@ -25,17 +25,17 @@ if(!empty($list)){ ?>
 		</thead>
 		<tbody>
 			<?php foreach($list as $num_row => $row){ ?>
-			<tr  <?php if($num_row % 2 == 1){?>class="erow"<?php }?>>
+			<tr class="<?php echo ($num_row % 2 == 1) ? 'erow' : ''; ?>">
 				<?php foreach($columns as $column){?>
 					<td width="<?php //echo $column_width.'%'?>" class="<?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?>sorted<?php }?>">
-						<div class="text-left"><?php echo $row->{$column->field_name} != '' ? $row->{$column->field_name} : '&nbsp;' ; ?></div>
+						<div class="text-left"><?php echo ($row->{$column->field_name} != '') ? $row->{$column->field_name} : '&nbsp;' ; ?></div>
 					</td>
 				<?php }?>
 				<?php if(!$unset_delete || !$unset_edit || !empty($actions)){?>
-				<td align="left" width="20%">
+				<td align="left">
 					<div class="tools">
 						<div class="btn-group">
-							<button class="btn">Action</button>
+							<button class="btn">Ações</button>
 							<button class="btn dropdown-toggle" data-toggle="dropdown">
 								<span class="caret"></span>
 							</button>

@@ -48,11 +48,11 @@
 		</div>
 		<div class="pDiv">
 			<div class="form-button-box">
-				<input type="submit" value="<?php echo $this->l('form_save'); ?>"  class="btn btn-large"/>
+				<input type="submit" value="<?php echo $this->l('form_save'); ?>"  class="btn btn-large btn-primary"/>
 			</div>
 <?php 	if(!$this->unset_back_to_list) { ?>
 			<div class="form-button-box">
-				<input type="button" value="<?php echo $this->l('form_save_and_go_back'); ?>" id="save-and-go-back-button"  class="btn btn-large"/>
+				<input type="button" value="<?php echo $this->l('form_save_and_go_back'); ?>" id="save-and-go-back-button"  class="btn btn-large btn-primary"/>
 			</div>
 			<div class="form-button-box">
 				<input type="button" value="<?php echo $this->l('form_cancel'); ?>" onclick="javascript: goToList()"  class="btn btn-large" />
@@ -67,8 +67,8 @@
 </div>
 </div>
 <script>
-	var validation_url = '<?php echo $validation_url?>',
-		list_url = '<?php echo $list_url?>',
+	var validation_url = "<?php echo $validation_url?>",
+		list_url = "<?php echo $list_url?>",
 		message_alert_add_form = "<?php echo $this->l('alert_add_form')?>",
 		message_insert_error = "<?php echo $this->l('insert_error')?>";
 </script>

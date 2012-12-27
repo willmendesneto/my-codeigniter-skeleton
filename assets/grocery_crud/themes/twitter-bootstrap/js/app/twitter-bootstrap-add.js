@@ -1,5 +1,5 @@
 $(function(){
-		$('.ptogtitle').click(function(){
+	/*	$('.ptogtitle').click(function(){
 			if($(this).hasClass('vsble'))
 			{
 				$(this).removeClass('vsble');
@@ -10,16 +10,16 @@ $(function(){
 				$(this).addClass('vsble');
 				$('#main-table-box').slideUp("slow");
 			}
-		});
-		
+		});*/
+
 		var save_and_close = false;
-		
+
 		$('#save-and-go-back-button').click(function(){
 			save_and_close = true;
-			
+
 			$('#crudForm').trigger('submit');
 		});
-		
+
 		$('#crudForm').submit(function(){
 			$(this).ajaxSubmit({
 				url: validation_url,
@@ -31,27 +31,27 @@ $(function(){
 				success: function(data){
 					$("#FormLoading").hide();
 					if(data.success)
-					{						
+					{
 						$('#crudForm').ajaxSubmit({
 							dataType: 'text',
 							cache: 'false',
 							beforeSend: function(){
 								$("#FormLoading").show();
-							},								
+							},
 							success: function(result){
 								$("#FormLoading").fadeOut("slow");
 								data = $.parseJSON( result );
 								if(data.success)
-								{	
+								{
 									if(save_and_close)
 									{
 										window.location = data.success_list_url;
 										return true;
-									}									
-																		
+									}
+
 									$('.field_error').each(function(){
 										$(this).removeClass('field_error');
-									});									
+									});
 									clearForm();
 									success_message(data.success_message);
 								}
@@ -65,7 +65,7 @@ $(function(){
 								$("#FormLoading").hide();
 							}
 						});
-					} 
+					}
 					else
 					{
 						$('.field_error').removeClass('field_error');
@@ -73,7 +73,7 @@ $(function(){
 						$.each(data.error_fields, function(index,value){
 							$('input[name='+index+']').addClass('field_error');
 						});
-						
+
 					}
 				},
 				error: function(){
@@ -83,7 +83,7 @@ $(function(){
 			});
 			return false;
 		});
-	});	
+	});
 
 	function goToList()
 	{
@@ -92,9 +92,9 @@ $(function(){
 			window.location = list_url;
 		}
 
-		return false;	
+		return false;
 	}
-	
+
 	function clearForm()
 	{
 		$('#crudForm').find(':input').each(function() {
@@ -116,15 +116,15 @@ $(function(){
 		$('.open-file,.gc-file-upload,.hidden-upload-input').each(function(){
 			$(this).val('');
 		});
-		
+
 		$('.upload-success-url').hide();
 		$('.fileinput-button').fadeIn("normal");
-		/* -------------------- */		
-		
+		/* -------------------- */
+
 		$('.remove-all').each(function(){
 			$(this).trigger('click');
 		});
-		
+
 		$('.chosen-multiple-select, .chosen-select, .ajax-chosen-select').each(function(){
 			$(this).trigger("liszt:updated");
 		});

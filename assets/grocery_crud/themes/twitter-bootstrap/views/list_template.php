@@ -1,14 +1,14 @@
 <?php
-$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap.min.css');
+/*$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap.min.css');
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap-responsive.min.css');
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/tablesorter.min.css');
 /** Fancybox */
-$this->set_css($this->default_css_path.'/jquery_plugins/fancybox/jquery.fancybox.css');
+/*$this->set_css($this->default_css_path.'/jquery_plugins/fancybox/jquery.fancybox.css');*/
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/style.css');
 
 $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 //	JQUERY UI
-$this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
+//$this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
 
 //	JAVASCRIPTS - JQUERY NOTY
 $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
@@ -76,17 +76,8 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.
 		<p><?php echo $success_message; ?></p>
 	<?php } ?>
 </div>
-<div class="twitter-bootstrap" style="width: 100%;">
-	<div class="mDiv">
-		<div class="ftitle">
-			&nbsp;
-		</div>
-		<div title="<?php echo $this->l('minimize_maximize');?>" class="ptogtitle">
-			<span></span>
-		</div>
-	</div>
+<div class="twitter-bootstrap">
 	<div id="main-table-box">
-
 		<br/>
 		<?php if(!$unset_add || !$unset_export || !$unset_print){?>
 		<div class="tDiv">

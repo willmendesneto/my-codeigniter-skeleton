@@ -1,5 +1,18 @@
 $(function() {
+
 	function setupTablesorter() {
+		//	Method money
+		$.tablesorter.addParser({
+            id: "money",
+            is: function(s) {
+                return true;
+            },
+            format: function(s) {
+                return $.tablesorter.formatFloat(s.replace(/ /, '').replace('R$', '').replace(/\./, '').replace(/\,/, '.').replace(new RegExp(/[^0-9,]/g),""));
+            },
+            type: "numeric"
+        });
+
 		var classHeaders = {
 			'text': '.sorter-text',
 			'digit': '.sorter-digit',
@@ -11,24 +24,20 @@ $(function() {
 			'shortDate': '.sorter-shortDate',
 			'time': '.sorter-time',
 			'metadata': '.sorter-metadata',
-			'digit': '.sorter-digit',
 			'money': '.sorter-money',
 		};
 
 		var tableHeaders = '', separator;
 
 		$('.tablesorter').each(function (i, e) {
-			var self = $(this);
 			$.each(classHeaders, function(key, value){
-				self.find(key).each(function (pos) {
-
+				$(this).find(value).each(function (pos) {
 					if(separator == undefined)
 						separator = ',';
-
 					tableHeaders += separator +' '+ $(this).index()+' : { sorter: "'+key+'"}';
 				});
 			});
-
+			console.log(tableHeaders);
 			$(this).tablesorter({ widgets: ['zebra'], dateFormat: 'uk', noSorterClass: 'no-sorter', headers: tableHeaders });
 		});
 	}
