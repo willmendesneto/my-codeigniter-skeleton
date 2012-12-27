@@ -1,14 +1,7 @@
 <?php
-/*$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap.min.css');
-$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/min/bootstrap-responsive.min.css');
-$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/tablesorter.min.css');
-/** Fancybox */
-/*$this->set_css($this->default_css_path.'/jquery_plugins/fancybox/jquery.fancybox.css');*/
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/style.css');
 
 $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
-//	JQUERY UI
-//$this->set_css($this->default_css_path.'/ui/simple/'.grocery_CRUD::JQUERY_UI_CSS);
 
 //	JAVASCRIPTS - JQUERY NOTY
 $this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
@@ -82,18 +75,20 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.
 		<?php if(!$unset_add || !$unset_export || !$unset_print){?>
 		<div class="tDiv">
 			<?php if(!$unset_add){?>
- 					<a href="<?php echo $add_url?>" title="<?php echo $this->l('list_add'); ?> <?php echo $subject?>" class="add-anchor add_button btn"><!--
- 					<a href="<?php echo $add_url?>" title="<?php echo $this->l('list_add'); ?> <?php echo $subject?>" class="btn"> -->
+ 					<a href="<?php echo $add_url?>" title="<?php echo $this->l('list_add'); ?> <?php echo $subject?>" class="add-anchor add_button btn">
+ 						<i class="icon-plus"></i>
  						<?php echo $this->l('list_add'); ?> <?php echo $subject?>
  					</a>
  			<?php }?>
  			<?php if(!$unset_export) { ?>
 	 			<a class="export-anchor btn" data-url="<?php echo $export_url; ?>" rel="external">
+	 				<i class="icon-download"></i>
 	 				<?php echo $this->l('list_export');?>
 	 			</a>
  			<?php } ?>
  			<?php if(!$unset_print) { ?>
 	 			<a class="print-anchor btn" data-url="<?php echo $print_url; ?>">
+	 				<i class="icon-print"></i>
 	 				<?php echo $this->l('list_print');?>
 	 			</a>
  			<?php }?>
