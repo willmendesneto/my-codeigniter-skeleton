@@ -62,7 +62,9 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.
 		unique_hash = "<?php echo $unique_hash; ?>",
 		message_alert_delete = "<?php echo $this->l('alert_delete'); ?>";
 </script>
+<!-- UTILIZADO PARA IMPRESSÃO DA LISTAGEM -->
 <div id="hidden-operations"></div>
+
 <div id="report-error" class="report-div error"></div>
 <div id="report-success" class="report-div success report-list" <?php if($success_message !== null){?>style="display:block"<?php }?>>
 	<?php if($success_message !== null){?>
@@ -136,9 +138,9 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.
 				</span>
 
 				<!-- DIVS DE CONFIGURACOES DO GROCERY CRUD -->
-				<div class="pSearch pButton" id="quickSearchButton" title="<?php echo $this->l('list_search');?>">
+				<!-- <div class="pSearch pButton" id="quickSearchButton" title="<?php echo $this->l('list_search');?>">
 					<span></span>
-				</div>
+				</div> -->
 				<div class="pNext pButton next-button" >
 					<span></span>
 				</div>

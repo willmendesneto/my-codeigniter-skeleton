@@ -2,25 +2,14 @@ $(function(){
 
 	var save_and_close = false;
 
-/*	$('.ptogtitle').click(function(){
-		if($(this).hasClass('vsble'))
-		{
-			$(this).removeClass('vsble');
-			$('#main-table-box').slideDown("slow");
-		}
-		else
-		{
-			$(this).addClass('vsble');
-			$('#main-table-box').slideUp("slow");
-		}
-	});	*/
-
+	//	Salva as informações e retorna a listagem inicial
 	$('#save-and-go-back-button').click(function(){
 		save_and_close = true;
 
 		$('#crudForm').trigger('submit');
 	});
 
+	//	Submete o formulário para inserir os dados no BD
 	$('#crudForm').submit(function(){
 		$(this).ajaxSubmit({
 			url: validation_url,
@@ -89,6 +78,7 @@ $(function(){
 	});
 });
 
+//	Retornar para a tabela de listagem de dados inicial
 function goToList()
 {
 	if( confirm( message_alert_edit_form ) )

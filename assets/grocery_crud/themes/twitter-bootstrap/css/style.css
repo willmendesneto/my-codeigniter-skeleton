@@ -7,3 +7,6 @@
 .row{
 	margin-top: 70px;
 }
+.loading{
+	background:url('images/small-loading.gif') center top no-repeat;
+}
