@@ -39,41 +39,60 @@ $(function(){
 										return true;
 									}
 
-									$('.field_error').each(function(){
-										$(this).removeClass('field_error');
+									$('.form-input-box').each(function(){
+										$(this).removeClass('error');
 									});
 									clearForm();
-									success_message(data.success_message);
+									//success_message(data.success_message);
+									//
+									alert_message('success', data.success_message);
 								}
 								else
 								{
-									alert( message_insert_error );
+									//alert( message_insert_error );
+									alert_message('error', message_insert_error);
 								}
 							},
 							error: function(){
-								alert( message_insert_error );
+								//alert( message_insert_error );
+								//
+								alert_message('error', message_insert_error);
 								$("#FormLoading").hide();
 							}
 						});
 					}
 					else
 					{
-						$('.field_error').removeClass('field_error');
-						error_message(data.error_message);
+						$('.form-input-box').removeClass('error');
+						//error_message(data.error_message);
+
+						alert_message('error', data.error_message);
+
 						$.each(data.error_fields, function(index,value){
-							$('input[name='+index+']').addClass('field_error');
+							$('input[name='+index+']').addClass('error');
 						});
 
 					}
 				},
 				error: function(){
-					error_message (message_insert_error);
+					//error_message (message_insert_error);
+					alert_message('error', message_insert_error);
+
 					$("#FormLoading").hide();
 				}
 			});
 			return false;
 		});
 	});
+
+	//	Mensagens para a aplicação
+	var alert_message = function(type_message, text_message){
+		$('.alert-'+type_message).remove();
+		$('body').prepend('<div class="alert alert-'+type_message+' span12"><a class="close" data-dismiss="alert" href="#"> x </a>'+text_message+'</div>').animate({
+			scrollTop:0
+		}, 600);
+		return false;
+	};
 
 	//	Retornar para a tabela de listagem de dados inicial
 	function goToList()

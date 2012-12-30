@@ -5,6 +5,46 @@
  * - list.php
  */
 $(function(){
+	$('a[data-toggle=modal]').click(function(){
+
+	  var target = ($(this)).attr('data-target');
+		$.ajax({
+			url: $(this).attr("href"),
+			data: {
+				is_ajax: 'true'
+			},
+			type: 'post',
+			dataType: 'json',
+			success: function (data) {
+				console.log('data: '+data.output);
+				if (typeof CKEDITOR !== 'undefined' && typeof CKEDITOR.instances !== 'undefined') {
+						$.each(CKEDITOR.instances,function(index){
+							delete CKEDITOR.instances[index];
+						});
+				}
+
+				LazyLoad.loadOnce(data.js_lib_files);
+				LazyLoad.load(data.js_config_files);
+
+				$.each(data.css_files,function(index,css_file){
+					load_css_file(css_file);
+				});
+				$(target).html(data.output).removeClass('hide');
+			}
+		});
+		return false;
+	});
+
+
+	//	Mensagens para a aplicação
+	var alert_message = function(type_message, text_message){
+		$('.alert-'+type_message).remove();
+		$('body').prepend('<div class="alert alert-'+type_message+' span12"><a class="close" data-dismiss="alert" href="#"> x </a>'+text_message+'</div>').animate({
+			scrollTop:0
+		}, 600);
+		return false;
+	};
+
 
 	var call_fancybox = function(){}
 	if($('.image-thumbnail')[0]){
@@ -156,11 +196,13 @@ $(function(){
 					{
 						$('#ajax_refresh_and_loading').trigger('click');
 
-						success_message(data.success_message);
+						//	success_message(data.success_message);
+						alert_message('sucess', data.success_message);
 					}
 					else
 					{
-						error_message(data.error_message);
+						//	error_message(data.error_message);
+						alert_message('sucess', data.error_message);
 
 					}
 				}
@@ -252,8 +294,6 @@ function printTable(class_name, filtering_form){
 
 	return;
 }
-
-
 
 /**
  * Mostra a visualização e paginação da tabela

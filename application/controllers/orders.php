@@ -25,7 +25,7 @@ class Orders extends CI_Controller {
 			$this->grocery_crud->unset_delete();
 
 			$output = $this->grocery_crud->render();
-			$this->load->view('templates/template', $output);
+			$this->load->view('templates/template_crud', $output);
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}

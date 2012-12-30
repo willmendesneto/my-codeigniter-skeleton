@@ -9,30 +9,6 @@
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="/assets/twitter-bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/twitter-bootstrap/css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="/assets/twitter-bootstrap/css/style.css">
-
-    <script src="/assets/twitter-bootstrap/js/libs/jquery-1.8.3.min.js"></script>
-
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-transition.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-collapse.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-transition.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-alert.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-modal.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-dropdown.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-scrollspy.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-tab.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-tooltip.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-popover.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-button.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-collapse.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-carousel.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-typeahead.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/bootstrap-affix.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/modernizr-2.6.1.custom.js"></script>
-    <script src="/assets/twitter-bootstrap/js/libs/bootstrap/application.js"></script>
-
     <?php
     if(!empty($css_files)){
         foreach($css_files as $file):

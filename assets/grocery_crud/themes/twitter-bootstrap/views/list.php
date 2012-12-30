@@ -1,4 +1,3 @@
-
 <?php
 //$column_width = (int)( 80 / count($columns));
 
@@ -41,6 +40,12 @@ if(!empty($list)){ ?>
 							</button>
 							<ul class="dropdown-menu">
 								<?php if(!$unset_edit){?>
+								<li>
+									<a href="<?php echo $row->edit_url?>" title="<?php echo $this->l('list_edit')?> <?php echo $subject?>">
+										<i class="icon-pencil"></i>
+										<?php echo $this->l('list_edit') . ' ' . $subject; ?>(Envio direto para página)
+									</a>
+								</li>
 								<li>
 									<a href="<?php echo $row->edit_url?>" title="<?php echo $this->l('list_edit')?> <?php echo $subject?>" class="edit_button">
 										<i class="icon-pencil"></i>

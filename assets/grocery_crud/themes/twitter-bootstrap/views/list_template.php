@@ -1,11 +1,16 @@
 <?php
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/style.css');
 
+$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/jquery-ui/flick/jquery-ui-1.9.2.custom.css');
+
 $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 
+//	JAVASCRIPTS - JQUERY-UI
+$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery-ui/jquery-ui-1.9.2.custom.js');
+
 //	JAVASCRIPTS - JQUERY NOTY
-$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
-$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/config/jquery.noty.config.js');
+//$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
+//$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/config/jquery.noty.config.js');
 //	JAVASCRIPTS - JQUERY LAZY-LOAD
 $this->set_js_lib($this->default_javascript_path.'/common/lazyload-min.js');
 
@@ -13,7 +18,7 @@ if (!$this->is_IE7()) {
 	$this->set_js_lib($this->default_javascript_path.'/common/list.js');
 }
 //	JAVASCRIPTS - TWITTER BOOTSTRAP
-$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/libs/bootstrap/bootstrap.min.js');
+//$this->set_js($this->default_theme_path.'/twitter-bootstrap/js/libs/bootstrap/bootstrap.min.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/libs/bootstrap/bootstrap-transition.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/libs/bootstrap/bootstrap-alert.js');
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/libs/bootstrap/bootstrap-modal.js');
@@ -46,8 +51,8 @@ $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.fancybox.pa
 $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.easing-1.3.pack.js');
 
 //	JAVASCRIPTS - JQUERY UI
-$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/ui/'.grocery_CRUD::JQUERY_UI_JS);
-$this->load_js_jqueryui();
+//$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/ui/'.grocery_CRUD::JQUERY_UI_JS);
+//$this->load_js_jqueryui();
 
 //	JAVASCRIPTS - twitter-bootstrap - CONFIGURAÇÕES
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/app/twitter-bootstrap.js');
@@ -62,8 +67,19 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.
 		unique_hash = "<?php echo $unique_hash; ?>",
 		message_alert_delete = "<?php echo $this->l('alert_delete'); ?>";
 </script>
+
+<!-- MODAL PARA SER INSERIDO AS INFORMAÇÕES DE ADD E EDIT -->
+<div class="modal hide" id="modal" style="width: 900px; height: auto;"></div>
+
+
 <!-- UTILIZADO PARA IMPRESSÃO DA LISTAGEM -->
 <div id="hidden-operations"></div>
+
+<ul class="breadcrumb">
+	<li><a href="#">Home</a> <span class="divider">/</span></li>
+	<li><a href="#">Library</a> <span class="divider">/</span></li>
+	<li class="active">Data</li>
+</ul>
 
 <div id="report-error" class="report-div error"></div>
 <div id="report-success" class="report-div success report-list" <?php if($success_message !== null){?>style="display:block"<?php }?>>
@@ -74,9 +90,17 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.
 <div class="twitter-bootstrap">
 	<div id="main-table-box">
 		<br/>
+		<a class="btn btn-warning" data-toggle="modal" href="<?php echo $add_url?>" data-target="#modal">click me</a>
+
+
 		<?php if(!$unset_add || !$unset_export || !$unset_print){?>
 		<div class="tDiv">
 			<?php if(!$unset_add){?>
+
+ 					<a href="<?php echo $add_url?>" title="<?php echo $this->l('list_add'); ?> <?php echo $subject?>" class="add-anchor btn">
+ 						<i class="icon-plus"></i>
+ 						<?php echo $this->l('list_add'); ?> <?php echo $subject?>(Envio direto para página)
+ 					</a>
  					<a href="<?php echo $add_url?>" title="<?php echo $this->l('list_add'); ?> <?php echo $subject?>" class="add-anchor add_button btn">
  						<i class="icon-plus"></i>
  						<?php echo $this->l('list_add'); ?> <?php echo $subject?>
@@ -137,25 +161,18 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.
 					<span id="last-page-number"><?php echo ceil($total_results / $default_per_page); ?></span>
 				</span>
 
-				<!-- DIVS DE CONFIGURACOES DO GROCERY CRUD -->
-				<!-- <div class="pSearch pButton" id="quickSearchButton" title="<?php echo $this->l('list_search');?>">
-					<span></span>
-				</div> -->
-				<div class="pNext pButton next-button" >
-					<span></span>
-				</div>
-				<div class="pLast pButton last-button">
-					<span></span>
-				</div>
-				<div class="pFirst pButton first-button">
-					<span></span>
-				</div>
-				<div class="pPrev pButton prev-button">
-					<span></span>
-				</div>
 				<div class="pReload pButton" id="ajax_refresh_and_loading">
 					<span></span>
 				</div>
+
+				<div class="pagination pagination-centered">
+					<ul>
+						<li class="first-button"><a href="javascript:void(0);">&laquo; <?php echo $this->l('list_paging_first'); ?></a></li>
+						<li class="prev-button"><a href="javascript:void(0);">&laquo; <?php echo $this->l('list_paging_previous'); ?></a></li>
+						<li class="next-button"><a href="javascript:void(0);"><?php echo $this->l('list_paging_next'); ?> &raquo;</a></li>
+						<li class="last-button"><a href="javascript:void(0);"><?php echo $this->l('list_paging_last'); ?> &raquo;</a></li>
+					</ul>
+				</div>		</div>
 				<?php echo form_close(); ?>
 			</div>
 		</div>
