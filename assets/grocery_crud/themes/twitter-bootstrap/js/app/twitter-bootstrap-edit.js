@@ -90,9 +90,13 @@ $(function(){
 //	Mensagens para a aplicação
 var alert_message = function(type_message, text_message){
 	$('.alert-'+type_message).remove();
-	$('body').prepend('<div class="alert alert-'+type_message+'"><a class="close" data-dismiss="alert" href="#"> x </a>'+text_message+'</div>').animate({
+	$('#crudForm').prepend('<div class="alert alert-'+type_message+'"><a class="close" data-dismiss="alert" href="#"> x </a>'+text_message+'</div>');
+	$('html, body').animate({
 		scrollTop:0
 	}, 600);
+	window.setTimeout( function(){
+        $('.alert-'+type_message).slideUp();
+    }, 7000);
 	return false;
 };
 
