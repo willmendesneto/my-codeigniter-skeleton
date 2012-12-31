@@ -1,6 +1,6 @@
 <?php
-$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/style.css');
 
+$this->set_css($this->default_theme_path.'/twitter-bootstrap/css/style.css');
 $this->set_css($this->default_theme_path.'/twitter-bootstrap/css/jquery-ui/flick/jquery-ui-1.9.2.custom.css');
 
 $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
@@ -8,9 +8,6 @@ $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 //	JAVASCRIPTS - JQUERY-UI
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery-ui/jquery-ui-1.9.2.custom.js');
 
-//	JAVASCRIPTS - JQUERY NOTY
-//$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
-//$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/config/jquery.noty.config.js');
 //	JAVASCRIPTS - JQUERY LAZY-LOAD
 $this->set_js_lib($this->default_javascript_path.'/common/lazyload-min.js');
 
@@ -59,25 +56,13 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/app/twitter-boots
 //	JAVASCRIPTS - JQUERY-FUNCTIONS
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.js');
 ?>
-<ul class="breadcrumb">
-  <li><a href="#">Home</a> <span class="divider">/</span></li>
-  <li><a href="#">Library</a> <span class="divider">/</span></li>
-  <li class="active"><?php echo $this->l('form_add'); ?> <?php echo $subject?></li>
-</ul>
+<div class="twitter-bootstrap crud-form">
 
-<div class="flexigrid crud-form" style="width: 100%;">
-	<div class="mDiv">
-		<div class="ftitle">
-			<div class="ftitle-left">
-				<?php echo $this->l('form_edit'); ?> <?php echo $subject?>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div title="<?php echo $this->l('minimize_maximize');?>" class="ptogtitle">
-			<span></span>
-		</div>
-	</div>
-	<div id="main-table-box">
+	<h2><?php echo $this->l('form_edit'); ?> <?php echo $subject?></h2>
+
+	<!-- CONTENT FOR ALERT MESSAGES -->
+	<div id="message-box"></div>
+	<div id="main-table-box span12">
 		<?php echo form_open( $update_url, 'method="post" id="crudForm" autocomplete="off" enctype="multipart/form-data"'); ?>
 		<div class='form-div'>
 			<?php
@@ -96,35 +81,23 @@ $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.
 					</div>
 					<div class="clear"></div>
 				</div>
-				<?php }?>
-				<?php if(!empty($hidden_fields)){?>
-				<!-- Start of hidden inputs -->
-				<?php
-				foreach($hidden_fields as $hidden_field){
-					echo $hidden_field->input;
-				}
-				?>
-				<!-- End of hidden inputs -->
-				<?php }?>
-				<div id="report-error" class="report-div error"></div>
-				<div id="report-success" class="report-div success"></div>
+				<?php }
+				//	Hidden Elements
+				if(!empty($hidden_fields)){
+					foreach($hidden_fields as $hidden_field){
+						echo $hidden_field->input;
+					}
+				}?>
 			</div>
-			<div class="pDiv">
-				<div class="form-button-box">
-					<input type="submit" value="<?php echo $this->l('form_update_changes'); ?>" class="btn btn-large btn-primary"/>
-				</div>
+			<div class="span12">
+				<input type="submit" value="<?php echo $this->l('form_update_changes'); ?>" class="btn btn-large btn-primary"/>
 				<?php 	if(!$this->unset_back_to_list) { ?>
-				<div class="form-button-box">
 					<input type="button" value="<?php echo $this->l('form_update_and_go_back'); ?>" id="save-and-go-back-button" class="btn btn-large btn-primary"/>
-				</div>
-				<div class="form-button-box">
 					<input type="button" value="<?php echo $this->l('form_cancel'); ?>" onclick="javascript: return goToList()" class="btn btn-large" />
-				</div>
 				<?php 	} ?>
-				<div class="form-button-box">
-					<div class="small-loading" id="FormLoading"><?php echo $this->l('form_update_loading'); ?></div>
-				</div>
-				<div class="clear"></div>
+
+				<div class="hide loading" id="ajax-loading"><?php echo $this->l('form_update_loading'); ?></div>
+
 			</div>
 			<?php echo form_close(); ?>
 		</div>

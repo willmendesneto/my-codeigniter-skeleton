@@ -15,21 +15,21 @@ $(function(){
 			dataType: 'json',
 			cache: 'false',
 			beforeSend: function(){
-				$("#FormLoading").show();
+				$("#ajax-loading").addClass('show loading');
 			},
 			success: function(data){
-				$("#FormLoading").hide();
+				$("#ajax-loading").addClass('hide');
 				if(data.success)
 				{
 					$('#crudForm').ajaxSubmit({
 						dataType: 'text',
 						cache: 'false',
 						beforeSend: function(){
-							$("#FormLoading").show();
+							$("#ajax-loading").addClass('show loading');
 						},
 						success: function(result){
 
-							$("#FormLoading").fadeOut("slow");
+							$("#ajax-loading").fadeOut("slow");
 							data = $.parseJSON( result );
 							if(data.success)
 							{
@@ -38,21 +38,14 @@ $(function(){
 									window.location = data.success_list_url;
 									return true;
 								}
-
-								//success_message(data.success_message);
-
 								alert_message('sucess', data.success_message);
 							}
 							else
 							{
-								//	error_message(message_update_error);
-
 								alert_message('error', message_update_error);
 							}
 						},
 						error: function(){
-								//	error_message( message_update_error );
-
 							alert_message('error', message_update_error);
 						}
 					});
@@ -62,25 +55,17 @@ $(function(){
 					$('.field_error').each(function(){
 						$(this).removeClass('field_error');
 					});
-					//$('#report-error').slideUp('fast').html(data.error_message);
 
 					alert_message('error', data.error_message);
 
 					$.each(data.error_fields, function(index,value){
 						$('input[name='+index+']').addClass('field_error');
 					});
-					/*
-					$('#report-error').slideDown('normal');
-					$('#report-success').slideUp('fast').html('');
-					*/
-
 				}
 			},
 			error: function(){
-				//alert( message_update_error );
 				alert_message('error', message_update_error);
-				$("#FormLoading").hide();
-
+				$("#ajax-loading").addClass('hide');
 			}
 		});
 		return false;
@@ -90,17 +75,16 @@ $(function(){
 //	Mensagens para a aplicação
 var alert_message = function(type_message, text_message){
 	$('.alert-'+type_message).remove();
-	$('#crudForm').prepend('<div class="alert alert-'+type_message+'"><a class="close" data-dismiss="alert" href="#"> x </a>'+text_message+'</div>');
+	$('#message-box').prepend('<div class="alert alert-'+type_message+' fade in"><a class="close" data-dismiss="alert" href="#"> x </a>'+text_message+'</div>');
 	$('html, body').animate({
 		scrollTop:0
 	}, 600);
+	$("#ajax-loading").addClass('hide');
 	window.setTimeout( function(){
         $('.alert-'+type_message).slideUp();
     }, 7000);
 	return false;
 };
-
-
 
 //	Retornar para a tabela de listagem de dados inicial
 function goToList()

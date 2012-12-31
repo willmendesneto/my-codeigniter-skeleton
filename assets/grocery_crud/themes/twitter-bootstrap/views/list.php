@@ -1,13 +1,10 @@
 <?php
-//$column_width = (int)( 80 / count($columns));
-
 if(!empty($list)){ ?>
 <div class="bDiv" >
 	<table class="table table-bordered tablesorter table-striped">
 		<thead>
 			<tr>
 				<?php foreach($columns as $column){?>
-				<!-- <th width="<?php //echo $column_width.'%'?>"> -->
 				<th>
 					<div class="text-left field-sorting <?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?><?php echo $order_by[1]?><?php }?>"
 						rel="<?php echo $column->field_name?>">
@@ -26,7 +23,7 @@ if(!empty($list)){ ?>
 			<?php foreach($list as $num_row => $row){ ?>
 			<tr class="<?php echo ($num_row % 2 == 1) ? 'erow' : ''; ?>">
 				<?php foreach($columns as $column){?>
-					<td width="<?php //echo $column_width.'%'?>" class="<?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?>sorted<?php }?>">
+					<td class="<?php if(isset($order_by[0]) &&  $column->field_name == $order_by[0]){?>sorted<?php }?>">
 						<div class="text-left"><?php echo ($row->{$column->field_name} != '') ? $row->{$column->field_name} : '&nbsp;' ; ?></div>
 					</td>
 				<?php }?>
@@ -40,26 +37,20 @@ if(!empty($list)){ ?>
 							</button>
 							<ul class="dropdown-menu">
 								<?php if(!$unset_edit){?>
-								<li>
-									<a href="<?php echo $row->edit_url?>" title="<?php echo $this->l('list_edit')?> <?php echo $subject?>">
-										<i class="icon-pencil"></i>
-										<?php echo $this->l('list_edit') . ' ' . $subject; ?>(Envio direto para página)
-									</a>
-								</li>
-								<li>
-									<a href="<?php echo $row->edit_url?>" title="<?php echo $this->l('list_edit')?> <?php echo $subject?>" class="edit_button">
-										<i class="icon-pencil"></i>
-										<?php echo $this->l('list_edit') . ' ' . $subject; ?>
-									</a>
-								</li>
+									<li>
+										<a href="<?php echo $row->edit_url?>" title="<?php echo $this->l('list_edit')?> <?php echo $subject?>">
+											<i class="icon-pencil"></i>
+											<?php echo $this->l('list_edit') . ' ' . $subject; ?>
+										</a>
+									</li>
 								<?php }?>
 								<?php if(!$unset_delete){?>
-								<li>
-									<a href="<?php echo $row->delete_url?>" title="<?php echo $this->l('list_delete')?> <?php echo $subject?>" class="delete-row" >
-										<i class="icon-trash"></i>
-										<?php echo $this->l('list_delete') . ' ' . $subject; ?>
-									</a>
-								</li>
+									<li>
+										<a href="<?php echo $row->delete_url?>" title="<?php echo $this->l('list_delete')?> <?php echo $subject?>" class="delete-row" >
+											<i class="icon-trash"></i>
+											<?php echo $this->l('list_delete') . ' ' . $subject; ?>
+										</a>
+									</li>
 								<?php }?>
 								<?php
 								if(!empty($row->action_urls)){
@@ -68,15 +59,17 @@ if(!empty($list)){ ?>
 										?>
 										<li>
 											<a href="<?php echo $action_url; ?>" class="<?php echo $action->css_class; ?> crud-action" title="<?php echo $action->label?>"><?php
-											if(!empty($action->image_url))
-											{
-												?><img src="<?php echo $action->image_url; ?>" alt="<?php echo $action->label?>" /><?php
+											if(!empty($action->image_url)){ ?>
+												<img src="<?php echo $action->image_url; ?>" alt="<?php echo $action->label?>" />
+											<?php
 											}
-											?></a>
+											?>
+											</a>
 										</li>
-										<?php }
+									<?php
 									}
-									?>
+								}
+								?>
 								</ul>
 							</div>
 							<div class="clear"></div>

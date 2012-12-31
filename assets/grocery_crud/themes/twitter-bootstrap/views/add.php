@@ -7,9 +7,6 @@ $this->set_js_lib($this->default_javascript_path.'/'.grocery_CRUD::JQUERY);
 
 //	JAVASCRIPTS - JQUERY-UI
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery-ui/jquery-ui-1.9.2.custom.js');
-//	JAVASCRIPTS - JQUERY NOTY
-//$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
-//$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/config/jquery.noty.config.js');
 //	JAVASCRIPTS - JQUERY LAZY-LOAD
 $this->set_js_lib($this->default_javascript_path.'/common/lazyload-min.js');
 
@@ -49,83 +46,56 @@ $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.fancybox.pa
 //	JAVASCRIPTS - JQUERY EASING
 $this->set_js($this->default_javascript_path.'/jquery_plugins/jquery.easing-1.3.pack.js');
 
-//	JAVASCRIPTS - JQUERY UI
-//$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/ui/'.grocery_CRUD::JQUERY_UI_JS);
-//$this->load_js_jqueryui();
-
 $this->set_js_config($this->default_theme_path.'/twitter-bootstrap/js/app/twitter-bootstrap-add.js');
 //	JAVASCRIPTS - JQUERY-FUNCTIONS
 $this->set_js($this->default_theme_path.'/twitter-bootstrap/js/jquery.functions.js');
 ?>
 
-<ul class="breadcrumb">
-  <li><a href="#">Home</a> <span class="divider">/</span></li>
-  <li><a href="#">Library</a> <span class="divider">/</span></li>
-  <li class="active"><?php echo $this->l('form_add'); ?> <?php echo $subject?></li>
-</ul>
+<div class="twitter-bootstrap crud-form">
 
-<div class="flexigrid crud-form" style="width: 100%;">
-	<div class="mDiv">
-		<div class="ftitle">
-			<div class="ftitle-left">
-				<?php echo $this->l('form_add'); ?> <?php echo $subject?>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div title="<?php echo $this->l('minimize_maximize');?>" class="ptogtitle">
-			<span></span>
-		</div>
-	</div>
-<div id="main-table-box">
-	<?php echo form_open( $insert_url, 'method="post" id="crudForm" autocomplete="off" enctype="multipart/form-data"'); ?>
-		<div class="form-div">
-			<?php
-			$counter = 0;
-				foreach($fields as $field)
-				{
-					$even_odd = $counter % 2 == 0 ? 'odd' : 'even';
-					$counter++;
-			?>
-			<div class="form-field-box <?php echo $even_odd?>" id="<?php echo $field->field_name; ?>_field_box">
-				<div class="form-display-as-box" id="<?php echo $field->field_name; ?>_display_as_box">
-					<?php echo $input_fields[$field->field_name]->display_as; ?><?php echo ($input_fields[$field->field_name]->required)? '<span class="required">*</span>' : ""; ?> :
-				</div>
-				<div class="form-input-box control-group" id="<?php echo $field->field_name; ?>_input_box">
-					<?php echo $input_fields[$field->field_name]->input?>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<?php }?>
-			<!-- Start of hidden inputs -->
+	<h2><?php echo $this->l('form_edit'); ?> <?php echo $subject?></h2>
+
+	<!-- CONTENT FOR ALERT MESSAGES -->
+	<div id="message-box"></div>
+	<div id="main-table-box span12">
+		<?php echo form_open( $insert_url, 'method="post" id="crudForm" autocomplete="off" enctype="multipart/form-data"'); ?>
+			<div class="form-div">
 				<?php
+				$counter = 0;
+					foreach($fields as $field)
+					{
+						$even_odd = $counter % 2 == 0 ? 'odd' : 'even';
+						$counter++;
+						?>
+						<div class="form-field-box <?php echo $even_odd?>" id="<?php echo $field->field_name; ?>_field_box">
+							<div class="form-display-as-box" id="<?php echo $field->field_name; ?>_display_as_box">
+								<?php echo $input_fields[$field->field_name]->display_as; ?><?php echo ($input_fields[$field->field_name]->required)? '<span class="required">*</span>' : ""; ?> :
+							</div>
+							<div class="form-input-box control-group" id="<?php echo $field->field_name; ?>_input_box">
+								<?php echo $input_fields[$field->field_name]->input?>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<?php
+					}
+					//	Hidden Elements
 					foreach($hidden_fields as $hidden_field){
 						echo $hidden_field->input;
 					}
 				?>
-			<!-- End of hidden inputs -->
-
-			<div id="report-error" class="report-div error"></div>
-			<div id="report-success" class="report-div success"></div>
-		</div>
-		<div class="pDiv">
-			<div class="form-button-box">
+			</div>
+			<div class="span12">
 				<input type="submit" value="<?php echo $this->l('form_save'); ?>"  class="btn btn-large btn-primary"/>
+				<?php 	if(!$this->unset_back_to_list) { ?>
+					<input type="button" value="<?php echo $this->l('form_save_and_go_back'); ?>" id="save-and-go-back-button"  class="btn btn-large btn-primary"/>
+					<input type="button" value="<?php echo $this->l('form_cancel'); ?>" onclick="javascript: goToList()"  class="btn btn-large" />
+				<?php 	} ?>
+
+				<div class="hide loading" id="ajax-loading"><?php echo $this->l('form_update_loading'); ?></div>
+
 			</div>
-<?php 	if(!$this->unset_back_to_list) { ?>
-			<div class="form-button-box">
-				<input type="button" value="<?php echo $this->l('form_save_and_go_back'); ?>" id="save-and-go-back-button"  class="btn btn-large btn-primary"/>
-			</div>
-			<div class="form-button-box">
-				<input type="button" value="<?php echo $this->l('form_cancel'); ?>" onclick="javascript: goToList()"  class="btn btn-large" />
-			</div>
-<?php 	} ?>
-			<div class="form-button-box">
-				<div class="small-loading" id="FormLoading"><?php echo $this->l('form_insert_loading'); ?></div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	<?php echo form_close(); ?>
-</div>
+		<?php echo form_close(); ?>
+	</div>
 </div>
 <script>
 	var validation_url = "<?php echo $validation_url?>",

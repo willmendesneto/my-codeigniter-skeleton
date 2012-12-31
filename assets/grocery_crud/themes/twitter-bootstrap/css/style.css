@@ -4,9 +4,13 @@
 @import '../../../css/jquery_plugins/fancybox/jquery.fancybox.css';
 @import '../../../css/ui/simple/jquery-ui-1.9.1.custom.min.css';
 
+body{
+	margin-top: 70px;
+}
 .row{
 	margin-top: 70px;
 }
 .loading{
-	background:url('images/loading.gif') center top no-repeat;
+	background:url('images/loading.gif') left top no-repeat;
+	padding-left: 30px;
 }

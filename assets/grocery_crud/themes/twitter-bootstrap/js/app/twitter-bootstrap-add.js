@@ -16,20 +16,20 @@ $(function(){
 				dataType: 'json',
 				cache: 'false',
 				beforeSend: function(){
-					$("#FormLoading").show();
+					$("#ajax-loading").show();
 				},
 				success: function(data){
-					$("#FormLoading").hide();
+					$("#ajax-loading").addClass('hide');
 					if(data.success)
 					{
 						$('#crudForm').ajaxSubmit({
 							dataType: 'text',
 							cache: 'false',
 							beforeSend: function(){
-								$("#FormLoading").show();
+								$("#ajax-loading").addClass('show loading');
 							},
 							success: function(result){
-								$("#FormLoading").fadeOut("slow");
+								$("#ajax-loading").fadeOut("slow");
 								data = $.parseJSON( result );
 								if(data.success)
 								{
@@ -43,29 +43,22 @@ $(function(){
 										$(this).removeClass('error');
 									});
 									clearForm();
-									//success_message(data.success_message);
-									//
 									alert_message('success', data.success_message);
 								}
 								else
 								{
-									//alert( message_insert_error );
 									alert_message('error', message_insert_error);
 								}
 							},
 							error: function(){
-								//alert( message_insert_error );
-								//
 								alert_message('error', message_insert_error);
-								$("#FormLoading").hide();
+								$("#ajax-loading").addClass('hide');
 							}
 						});
 					}
 					else
 					{
 						$('.form-input-box').removeClass('error');
-						//error_message(data.error_message);
-
 						alert_message('error', data.error_message);
 
 						$.each(data.error_fields, function(index,value){
@@ -75,10 +68,8 @@ $(function(){
 					}
 				},
 				error: function(){
-					//error_message (message_insert_error);
 					alert_message('error', message_insert_error);
-
-					$("#FormLoading").hide();
+					$("#ajax-loading").addClass('hide');
 				}
 			});
 			return false;
@@ -88,13 +79,14 @@ $(function(){
 	//	Mensagens para a aplicação
 	var alert_message = function(type_message, text_message){
 		$('.alert-'+type_message).remove();
-		$('#crudForm').prepend('<div class="alert alert-'+type_message+'"><a class="close" data-dismiss="alert" href="#"> x </a>'+text_message+'</div>');
+		$('#message-box').prepend('<div class="alert alert-'+type_message+' fade in"><a class="close" data-dismiss="alert" href="#"> x </a>'+text_message+'</div>');
 		$('html, body').animate({
 			scrollTop:0
 		}, 600);
 		window.setTimeout( function(){
 	        $('.alert-'+type_message).slideUp();
 	    }, 7000);
+		$("#ajax-loading").addClass('hide');
 		return false;
 	};
 
