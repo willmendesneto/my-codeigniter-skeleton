@@ -1,5 +1,5 @@
 {
-    "hash": "752b6d685c2f04f4e2a451df61a326de",
+    "hash": "ff51bcded534b0a10d85af3f2be6eb76",
     "packages": [
         {
             "name": "EHER/PHPUnit",
@@ -32,51 +32,6 @@
             "type": "library",
             "installation-source": "source",
             "description": "Unofficial version of PHPUnit to be handled with Composer."
-        },
-        {
-            "name": "kriswallsmith/buzz",
-            "version": "v0.7",
-            "source": {
-                "type": "git",
-                "url": "http://github.com/kriswallsmith/Buzz.git",
-                "reference": "v0.7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/kriswallsmith/Buzz/zipball/v0.7",
-                "reference": "v0.7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "suggest": {
-                "ext-curl": "*"
-            },
-            "time": "2012-06-25 12:01:38",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-0": {
-                    "Buzz": "lib/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kris Wallsmith",
-                    "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/"
-                }
-            ],
-            "description": "Lightweight HTTP client",
-            "homepage": "https://github.com/kriswallsmith/Buzz",
-            "keywords": [
-                "curl",
-                "http client"
-            ]
         },
         {
             "name": "mikey179/vfsStream",
@@ -460,49 +415,6 @@
             ]
         },
         {
-            "name": "sensio/buzz-bundle",
-            "version": "dev-master",
-            "target-dir": "Sensio/Bundle/BuzzBundle",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/sensio/SensioBuzzBundle",
-                "reference": "0754d7dd155efc4f85de60993571b0b6a5aaccb9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/sensio/SensioBuzzBundle/archive/0754d7dd155efc4f85de60993571b0b6a5aaccb9.zip",
-                "reference": "0754d7dd155efc4f85de60993571b0b6a5aaccb9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "kriswallsmith/buzz": ">= 0.6"
-            },
-            "time": "2012-05-28 07:08:44",
-            "type": "symfony-bundle",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "Sensio\\Bundle\\BuzzBundle": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marc Weistroff",
-                    "email": "marc.weistroff@sensio.com"
-                }
-            ],
-            "description": "Bundle around the Buzz HTTP client",
-            "homepage": "https://github.com/sensio/SensioBuzzBundle",
-            "keywords": [
-                "http client",
-                "buzz"
-            ]
-        },
-        {
             "name": "symfony/finder",
             "version": "v2.0.16",
             "target-dir": "Symfony/Component/Finder",
@@ -551,35 +463,31 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.1.4",
+            "version": "v2.1.6",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml",
-                "reference": "v2.1.4"
+                "reference": "v2.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Yaml/archive/v2.1.4.zip",
-                "reference": "v2.1.4",
+                "url": "https://github.com/symfony/Yaml/archive/v2.1.6.zip",
+                "reference": "v2.1.6",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-11-08 09:51:48",
+            "time": "2012-12-06 10:00:55",
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
             "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\Yaml": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -602,18 +510,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "f095f3a1777431412954e478f92e8a10cb7b6495"
+                "reference": "ddd4b732f9aa182edb54b89891c7fd25668354a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/archive/f095f3a1777431412954e478f92e8a10cb7b6495.zip",
-                "reference": "f095f3a1777431412954e478f92e8a10cb7b6495",
+                "url": "https://github.com/fabpot/Twig/archive/ddd4b732f9aa182edb54b89891c7fd25668354a4.zip",
+                "reference": "ddd4b732f9aa182edb54b89891c7fd25668354a4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-12-18 10:01:32",
+            "time": "2013-01-05 10:14:46",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -626,6 +534,7 @@
                     "Twig_": "lib/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3"
             ],
@@ -653,7 +562,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "twig/twig": 20,
-        "eher/phpunit": 20,
-        "sensio/buzz-bundle": 20
+        "eher/phpunit": 20
     }
 }
