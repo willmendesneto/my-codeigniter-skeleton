@@ -13,3 +13,5 @@ My Codeigniter's boilerplate
 6 - Codeigniter Ion Auth (https://github.com/mirzadelic/CodeIgniter-Ion-Auth)
 
 7 - Image CRUD (http://www.grocerycrud.com/image-crud/)
+
+8 - CIUnit for CodeIgniter 2.x (https://github.com/fukata/CIUnit-for-CI2)

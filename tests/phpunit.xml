@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit
-	bootstrap="./Bootstrap.php"
-	colors="true"
-	convertNoticesToExceptions="true"
-	convertWarningsToExceptions="true"
-	stopOnError="false"
-	stopOnFailure="false"
-	stopOnIncomplete="false"
-	stopOnSkipped="false">
-	<testsuites>
-		<testsuite name="CodeIgniter Core Test Suite">
-			<directory suffix="test.php">./codeigniter/core</directory>
-			<directory suffix="test.php">./codeigniter/helpers</directory>
-			<directory suffix="test.php">./codeigniter/libraries</directory>
-		</testsuite>
-	</testsuites>
-	<filter>
-		<blacklist>
-			<directory suffix=".php">PEAR_INSTALL_DIR</directory>
-			<directory suffix=".php">PHP_LIBDIR</directory>
-			<directory suffix=".php">../vendor</directory>
-		</blacklist>
-	</filter>
+<phpunit 
+    colors="true" 
+    stopOnFailure="false" 
+    bootstrap="../application/third_party/CIUnit/bootstrap_phpunit.php">
+    <php>
+        <const name="CIUnit_Version" value="0.17"/>
+        <server name="SERVER_NAME" value="http://example.com" />
+    </php>
+    <testsuites>
+        <testsuite name="ControllerTests">
+            <directory>controllers</directory>
+        </testsuite>
+        <testsuite name="HelperTests">
+            <directory suffix=".php">helpers</directory>
+        </testsuite>
+        <testsuite name="LibTests">
+            <directory suffix=".php">libs</directory>
+        </testsuite>
+        <testsuite name="ModelTests">
+            <directory suffix=".php">models</directory>
+        </testsuite>
+        <testsuite name="SystemTests">
+            <directory suffix=".php">system</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
