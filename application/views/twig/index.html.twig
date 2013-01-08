@@ -1,7 +1,5 @@
 {% extends 'templates/template.html.twig' %}
 
-
-
 {% block content %}
   <h1>Login</h1>
   <p>Please login with your email/username and password below.</p>
@@ -27,7 +25,7 @@
   </p>
 
 
-  <p>{{ form_submit('submit', 'Login')|raw }}</p>
+  <p>{{ form_submit('submit', 'Login', 'class="btn btn-primary"')|raw }}</p>
 
   {{ form_close()|raw }}
 
