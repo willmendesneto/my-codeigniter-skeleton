@@ -46,6 +46,10 @@
 */
 
 $active_group = 'default';
+
+if(defined('CIUnit_Version')){
+	$active_group .= '_test';
+}
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
@@ -63,6 +67,24 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+
+
+//	TEST DATABASE
+$db['default_test']['hostname'] = 'localhost';
+$db['default_test']['username'] = 'root';
+$db['default_test']['password'] = '';
+$db['default_test']['database'] = 'my-codeigniter-skeleton_test';
+$db['default_test']['dbdriver'] = 'mysql';
+$db['default_test']['dbprefix'] = '';
+$db['default_test']['pconnect'] = TRUE;
+$db['default_test']['db_debug'] = TRUE;
+$db['default_test']['cache_on'] = FALSE;
+$db['default_test']['cachedir'] = '';
+$db['default_test']['char_set'] = 'utf8';
+$db['default_test']['dbcollat'] = 'utf8_general_ci';
+$db['default_test']['swap_pre'] = '';
+$db['default_test']['autoinit'] = TRUE;
+$db['default_test']['stricton'] = FALSE;
 
 
 /* End of file database.php */

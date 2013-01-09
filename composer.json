@@ -1,6 +1,7 @@
 {
     "require": {
         "twig/twig": "1.12.*@dev",
-		"phpunit/phpunit": "*"
+		"phpunit/phpunit": "*",
+		"EHER/PHPUnit": "1.6"
     }
 }
