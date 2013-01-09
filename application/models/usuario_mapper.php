@@ -8,7 +8,11 @@ class Usuario_Mapper extends CI_Model {
 			return $this->db->insert_id();
 		}
 
-		$this->db->update('usuarios', $usuario, array('id' => $id));
+		return $this->db->update('usuarios', $usuario, array('id' => $id));
+	}
+
+	public function find($id){
+		return $this->db->get_where('usuarios', array('id' => $id))->row();
 	}
 }
 

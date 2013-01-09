@@ -24,7 +24,27 @@ class Test_Usuario extends CIUnit_TestCase {
 
 	public function test_cria_usuario(){
 		$this->assertEquals(1, $this->usuario_mapper->save($this->usuarios[1]));
+		$this->assertEquals(2, $this->usuario_mapper->save($this->usuarios[2]));
+		$this->assertEquals(3, $this->usuario_mapper->save($this->usuarios[3]));
 	}
+
+	/**
+	 *	depends test_cria_usuario
+	 **/
+	public function test_salva_usuario(){
+		$this->test_cria_usuario();
+		$email = 'teste@teste.com';
+		$id = 1;
+		$this->usuarios[1]->id = $id;
+		$this->usuarios[1]->email = $email;
+
+		$this->assertTrue($this->usuario_mapper->save($this->usuarios[1]));
+		$usuario = $this->usuario_mapper->find($id);
+
+		$this->assertEquals($email, $usuario->email);
+
+	}
+
 
 	public function tearDown(){
 		$this->CI->db->truncate('usuarios');
