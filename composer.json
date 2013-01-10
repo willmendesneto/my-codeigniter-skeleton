@@ -2,6 +2,10 @@
     "require": {
         "twig/twig": "1.12.*@dev",
 		"phpunit/phpunit": "*",
-		"EHER/PHPUnit": "1.6"
+	    "doctrine/orm": "2.2.2",
+	    "doctrine/common": "2.2.0",
+	    "doctrine/dbal": "2.2.1",
+	    "symfony/console": "2.x",
+	    "symfony/yaml": "2.x"
     }
 }
