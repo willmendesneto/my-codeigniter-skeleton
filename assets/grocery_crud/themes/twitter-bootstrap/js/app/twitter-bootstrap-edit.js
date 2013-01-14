@@ -15,10 +15,13 @@ $(function(){
 			dataType: 'json',
 			cache: 'false',
 			beforeSend: function(){
-				$("#ajax-loading").addClass('show loading');
+				$("#ajax-loading").fadeIn('fast');
+			},
+			afterSend: function(){
+				$("#ajax-loading").fadeOut('fast');
 			},
 			success: function(data){
-				$("#ajax-loading").addClass('hide');
+				$("#ajax-loading").fadeOut('fast');
 				if(data.success)
 				{
 					$('#crudForm').ajaxSubmit({
@@ -64,8 +67,8 @@ $(function(){
 				}
 			},
 			error: function(){
+				$("#ajax-loading").fadeOut('fast');
 				alert_message('error', message_update_error);
-				$("#ajax-loading").addClass('hide');
 			}
 		});
 		return false;
@@ -79,7 +82,7 @@ var alert_message = function(type_message, text_message){
 	$('html, body').animate({
 		scrollTop:0
 	}, 600);
-	$("#ajax-loading").addClass('hide');
+	$("#ajax-loading").fadeOut('fast');
 	window.setTimeout( function(){
         $('.alert-'+type_message).slideUp();
     }, 7000);
