@@ -4,7 +4,7 @@
  * Implementação de um gerador de código para o Framework Codeigniter baseada no Laravel Generator
  *
  */
-class CI_Code_Generate
+class CI_Code_Generator
 {
 
     /*
@@ -17,7 +17,6 @@ class CI_Code_Generate
 
     public static $js_dir  = 'js/';
     public static $coffee_dir  = 'js/coffee/';
-
 
     /*
      * The content for the generate file
@@ -142,49 +141,21 @@ EOT;
         // Where will this file be stored?
         $file_path = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. 'controllers'. DIRECTORY_SEPARATOR . "$class_name.php";
 
-        // Add methods/actions to class.
-        $this->add_after('{', $content);
+        // Begin building up the file's content
+        self::$content = Template::generateClass($class_name, 'CI_Controller');
+        $content = '';
+        // Now we filter through the args, and create the funcs.
+        foreach($args as $method) {
+            $content .= Template::generateFunction("{$method}");
+        }
 
+        // Add methods/actions to class.
+        self::$content = $this->add_after('{', $content, self::$content);
         // Prettify
         $this->prettify();
-
         // Create the file
         $this->write_to_file($file_path);
-    }
 
-
-
-    /**
-     * Crazy sloppy prettify. TODO - Cleanup
-     *
-     * @param  $content string
-     * @return string
-     */
-    protected function prettify()
-    {
-        $content = self::$content;
-
-        $content = str_replace('<?php ', "<?php\n\n", $content);
-        $content = str_replace('{}', "\n{\n\n}", $content);
-        $content = str_replace('public', "\n\n\tpublic", $content);
-        $content = str_replace("() \n{\n\n}", "()\n\t{\n\n\t}", $content);
-        $content = str_replace('}}', "}\n\n}", $content);
-
-        // Migration-Specific
-        $content = preg_replace('/ ?Schema::/', "\n\t\tSchema::", $content);
-        $content = preg_replace('/\$table(?!\))/', "\n\t\t\t\$table", $content);
-        $content = str_replace('});}', "\n\t\t});\n\t}", $content);
-        $content = str_replace(');}', ");\n\t}", $content);
-        $content = str_replace("() {", "()\n\t{", $content);
-
-        self::$content = $content;
-    }
-
-
-    public function add_after($where, $to_add, $content)
-    {
-        // return preg_replace('/' . $where . '/', $where . $to_add, $content, 1);
-        return str_replace($where, $where . $to_add, $content);
     }
 
 
@@ -216,6 +187,40 @@ EOT;
         }
     }
 
+
+
+    /**
+     * Crazy sloppy prettify. TODO - Cleanup
+     *
+     * @param  $content string
+     * @return string
+     */
+    protected function prettify()
+    {
+        $content = self::$content;
+
+        $content = str_replace('<?php ', "<?php ", $content);
+        $content = str_replace('{}', "\n{\n\n}", $content);
+        $content = str_replace("() \n{\n\n}", "()\n\t{\n\n\t}", $content);
+        $content = str_replace('}}', "}\n\n}", $content);
+
+        // Migration-Specific
+        $content = preg_replace('/ ?Schema::/', "\n\t\tSchema::", $content);
+        $content = preg_replace('/\$table(?!\))/', "\n\t\t\t\$table", $content);
+        $content = str_replace('});}', "\n\t\t});\n\t}", $content);
+        $content = str_replace(');}', ");\n\t}", $content);
+        $content = str_replace("() {", "()\n\t{", $content);
+
+        self::$content = trim($content);
+    }
+
+
+    public function add_after($where, $to_add, $content)
+    {
+        // return preg_replace('/' . $where . '/', $where . $to_add, $content, 1);
+        return str_replace($where, $where . $to_add, $content);
+    }
+
     /**
      * Generate a model file + boilerplate. (To be expanded.)
      *
@@ -234,7 +239,7 @@ EOT;
         $file_path = $this->path('models') . strtolower("$class_name.php");
 
         // Begin building up the file's content
-        Template::new_class($class_name, 'Eloquent' );
+        Template::generateClass($class_name, 'Eloquent' );
         $this->prettify();
 
         // Create the file
@@ -327,62 +332,6 @@ EOT;
         }
     }
 
-
-    /**
-     * Create PHPUnit test classes with optional methods
-     *
-     * USAGE:
-     *
-     * php artisan generate:test membership
-     * php artisan generate:test membership can_disable_user can_reset_user_password
-     *
-     * @param $args array
-     * @return void
-     */
-    public function test($args)
-    {
-        if ( empty($args) ) {
-            echo "Please specify a name for your test class.\n";
-            return;
-        }
-
-        $class_name = ucwords(array_shift($args));
-
-        $file_path = $this->path('tests');
-        if ( isset($this->should_include_tests) ) {
-            $file_path .= 'controllers/';
-        }
-        $file_path .= strtolower("{$class_name}.test.php");
-
-        // Begin building up the file's content
-        Template::new_class($class_name . '_Test', 'PHPUnit_Framework_TestCase');
-
-        // add the functions
-        $tests = '';
-        foreach($args as $test) {
-            // Don't worry about tests for non-get methods for now.
-            if ( strpos($test, ':') !== false ) continue;
-            if ( $test === 'restful' ) continue;
-
-            // make lower case
-            $func = Template::func("test_{$test}");
-
-            // Only if we're generating a resource.
-            if ( isset($this->should_include_tests) ) {
-                $func = Template::test($class_name, $test);
-            }
-
-            $tests .= $func;
-        }
-
-        // add funcs to class
-        Content::add_after('{', $tests);
-
-        // Create the file
-        $this->write_to_file($file_path, $this->prettify());
-    }
-
-
     /**
      * Determines whether the asset that the user wants is
      * contained with the external assets array
@@ -408,18 +357,51 @@ EOT;
        return self::$content;
     }
 
+}
+
+
+/**
+ * Class Template
+ *
+ * @package default
+ */
+class Template {
+
+    public static function generateFunction($func_name)
+    {
+        return <<<EOT
 
     /**
-     * Prepares the $name of the class
-     * Admin/panel => Admin_Panel
-     *
-     * @param $class_name string
+     * Description
+     * @return type
      */
-    protected function prettify_class_name($class_name)
+    public function {$func_name}()
     {
-        return preg_replace_callback('/\/([a-zA-Z])/', function($m) {
-            return "_" . strtoupper($m[1]);
-        }, $class_name);
+        //  Insert code here!
+    }
+
+EOT;
+    }
+
+    /**
+     * Generate class with your extended class
+     * @param string $name
+     * @param string $extends_class
+     * @return type
+     */
+    public static function generateClass($name, $extends_class = null)
+    {
+        $content = "
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class $name";
+        if ( !empty($extends_class) ) {
+            $content .= " extends $extends_class";
+        }
+
+        $content .= ' {}';
+
+        return $content;
     }
 
 }
