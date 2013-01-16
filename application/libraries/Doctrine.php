@@ -9,7 +9,7 @@ class Doctrine
     public function __construct()
     {
         // include our CodeIgniter application's database configuration
-        require APPPATH.'config/database.php';
+        require APPPATH.'config' . DIRECTORY_SEPARATOR . 'database.php';
 
         //$this->_ci =& get_instance();
 

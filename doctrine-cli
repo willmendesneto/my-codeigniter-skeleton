@@ -1,14 +1,12 @@
 <?php
 
 // trailing slash is important!
-define('APPPATH', dirname(__FILE__).DIRECTORY_SEPARATOR );
-define('BASEPATH', APPPATH);
+define('BASEPATH', dirname(__FILE__).DIRECTORY_SEPARATOR );
+define('APPPATH', BASEPATH . 'application' . DIRECTORY_SEPARATOR );
 define('ENVIRONMENT', 'development');
 
-require_once( APPPATH . '../vendor/autoload.php');
-
-require APPPATH.'libraries/Doctrine.php';
-
+require_once( BASEPATH . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
+require_once( APPPATH . 'libraries' . DIRECTORY_SEPARATOR . 'Doctrine.php');
 
 $doctrine = new Doctrine();
 

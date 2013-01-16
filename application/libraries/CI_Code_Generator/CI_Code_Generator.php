@@ -58,10 +58,11 @@ EOT;
         if (is_null($task))
             throw new Exception("Sorry, I can't find that task.");
 
-        if (is_callable(array($this, $method)))
-            $this->$method(array_slice($arguments, 1));
-        else
+        if ( !is_callable(array($this, $method)) )
             throw new Exception("Sorry, I can't find that method!");
+
+        $this->$method(array_slice($arguments, 1));
+
     }
 
 
