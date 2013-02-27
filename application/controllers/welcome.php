@@ -25,35 +25,29 @@
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>
 
-<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+class Welcome extends CI_Controller {
 
-<h4>A PHP Error was encountered</h4>
+	/**
+	 * Index Page for this controller.
+	 *
+	 * Maps to the following URL
+	 * 		http://example.com/index.php/welcome
+	 *	- or -
+	 * 		http://example.com/index.php/welcome/index
+	 *	- or -
+	 * Since this controller is set as the default controller in
+	 * config/routes.php, it's displayed at http://example.com/
+	 *
+	 * So any other public methods not prefixed with an underscore will
+	 * map to /index.php/welcome/<method_name>
+	 * @see http://codeigniter.com/user_guide/general/urls.html
+	 */
+	public function index()
+	{
+		$this->load->view('welcome_message');
+	}
+}
 
-<p>Severity: <?php echo $severity; ?></p>
-<p>Message:  <?php echo $message; ?></p>
-<p>Filename: <?php echo $filepath; ?></p>
-<p>Line Number: <?php echo $line; ?></p>
-
-<?php if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE === TRUE): ?>
-
-	<p>Backtrace: </p>
-	<?php foreach(debug_backtrace() as $error): ?>
-
-		<?php if(isset($error['file']) &&
-		         strpos($error['file'], realpath(BASEPATH)) !== 0): ?>
-
-			<p style="margin-left:10px">
-			File: <?php echo $error['file'] ?><br />
-			Line: <?php echo $error['line'] ?><br />
-			Function: <?php echo $error['function'] ?>
-			</p>
-
-		<?php endif ?>
-
-	<?php endforeach ?></p>
-
-<?php endif ?>
-
-</div>
+/* End of file welcome.php */
+/* Location: ./application/controllers/welcome.php */

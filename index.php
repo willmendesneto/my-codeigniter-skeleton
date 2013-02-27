@@ -1,21 +1,4 @@
 <?php
-
-    header( 'Content-type: text/html; charset=utf-8' );
-
-/**
- * 	Inserindo  TIME_ZONE DEFAULT da APLICACAO
- */
-
-    date_default_timezone_set( "America/Sao_Paulo" );
-
-/**
- *	Require autoload from Composer
- *
- */
-
-if( is_dir(__DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR) && file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php'))
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
-
 /**
  * CodeIgniter
  *
@@ -35,7 +18,7 @@ if( is_dir(__DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR) && fi
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -104,7 +87,7 @@ switch (ENVIRONMENT)
  *---------------------------------------------------------------
  *
  * If you want this front controller to use a different "application"
- * folder then the default one you can set its name here. The folder
+ * folder than the default one you can set its name here. The folder
  * can also be renamed or relocated anywhere on your server. If
  * you do, use a full server path. For more info please see the user guide:
  * http://codeigniter.com/user_guide/general/managing_apps.html

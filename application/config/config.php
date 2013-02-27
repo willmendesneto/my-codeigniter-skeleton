@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  * CodeIgniter
  *
@@ -18,7 +19,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/AFL-3.0 Academic Free License (AFL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -39,7 +40,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://codeigniter.dev/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,7 @@ $config['base_url']	= 'http://codeigniter.dev/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +95,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'pt-br';
+$config['language']	= 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -118,7 +119,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 
 /*
@@ -222,7 +223,21 @@ $config['log_threshold'] = 0;
 | application/logs/ folder. Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = 'application/logs/';
+$config['log_path'] = '';
+
+/*
+|--------------------------------------------------------------------------
+| Log File Extension
+|--------------------------------------------------------------------------
+|
+| The default filename extension for log files. The default 'php' allows for
+| protecting the log files via basic scripting, when they are to be stored
+| under a publicly accessible directory.
+|
+| Note: Leaving it blank will default to 'php'.
+|
+*/
+$config['log_file_extension'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -241,22 +256,24 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 |--------------------------------------------------------------------------
 |
 | Leave this BLANK unless you would like to set something other than the default
-| system/cache/ folder.  Use a full server path with trailing slash.
+| application/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = 'application/cache/';
+$config['cache_path'] = '';
 
 /*
 |--------------------------------------------------------------------------
 | Encryption Key
 |--------------------------------------------------------------------------
 |
-| Se você usar a classe de Criptografia ou a classe Session você
-| Deve definir uma chave de criptografia. Veja o guia do usuário para maiores informações.
+| If you use the Encryption class or the Session class you
+| MUST set an encryption key.  See the user guide for info.
+|
+| http://codeigniter.com/user_guide/libraries/encryption.html
+| http://codeigniter.com/user_guide/libraries/sessions.html
 |
 */
-$config['encryption_key'] = 't3s2e_9b186c435dfe00dc37389ca824fb51de';
-
+$config['encryption_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -282,8 +299,8 @@ $config['encryption_key'] = 't3s2e_9b186c435dfe00dc37389ca824fb51de';
 $config['sess_driver']			= 'cookie';
 $config['sess_valid_drivers']	= array();
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 1800;
-$config['sess_expire_on_close']	= TRUE;
+$config['sess_expiration']		= 7200;
+$config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
@@ -318,7 +335,7 @@ $config['cookie_httponly'] 	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = TRUE;
+$config['global_xss_filtering'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -418,44 +435,5 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
-/*
-|--------------------------------------------------------------------------
-| Modular Extension HMVC - Hierarquical Model-View-Controller
-|--------------------------------------------------------------------------
-|
-*/
-$config['modules_locations'] = array(APPPATH.'modules/' => '../modules/');
-
-
-/*
-|--------------------------------------------------------------------------
-| FCKEditor Basepath
-|--------------------------------------------------------------------------
-|
-| The path from your site's root in which the fckeditor folder is. Note
-| this is from the site's root, not the file system root. Also note the
-| required slashes at start and finish.
-|
-|    e.g. /fckeditor/ or /system/plugins/fckeditor/  etc...
-|
-*/
-
-$config['fckeditor_basepath']    = 'assets/plugins/fckeditor/';
-
-/*
-|--------------------------------------------------------------------------
-| FCKEditor Toolbar Set Default
-|--------------------------------------------------------------------------
-|
-| The default Toolbar set to be used for FCKEditor across your site. Leave
-| as empty string or comment out if your happy enough with the standard
-| default.
-|
-*/
-
-$config['fckeditor_toolbarset_default'] = 'Default';
-
-/* End of file config.php */
-/* Location: ./application/config/config.php */
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -1,11 +1,9 @@
 {
+    "name" : "willmendesneto/Codeigniter-TDD-with-Hooks",
     "require": {
-        "twig/twig": "1.12.*@dev",
-		"phpunit/phpunit": "*",
-	    "doctrine/orm": "2.2.2",
-	    "doctrine/common": "2.2.0",
-	    "doctrine/dbal": "2.2.1",
-	    "symfony/console": "2.x",
-	    "symfony/yaml": "2.x"
-    }
+        "php": ">=5.2.4"
+    },
+    "require": {
+		"phpunit/phpunit": "3.7@stable"
+	}
 }

@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('Acesso direto n&atilde;o permitido');
+<?php
 
 class DisplayHook
 {
