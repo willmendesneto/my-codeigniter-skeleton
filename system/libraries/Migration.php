@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2006 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2006 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 3.0
@@ -104,8 +104,8 @@ class CI_Migration {
 	 */
 	public function __construct($config = array())
 	{
-		# Only run this constructor on main library load
-		if (get_parent_class($this) !== FALSE)
+		// Only run this constructor on main library load
+		if ( ! in_array(get_class($this), array('CI_Migration', config_item('subclass_prefix').'Migration'), TRUE))
 		{
 			return;
 		}
@@ -143,8 +143,8 @@ class CI_Migration {
 
 		// Migration basename regex
 		$this->_migration_regex = ($this->_migration_type === 'timestamp')
-		                        ? '/^\d{14}_(\w+)$/'
-		                        : '/^\d{3}_(\w+)$/';
+			? '/^\d{14}_(\w+)$/'
+			: '/^\d{3}_(\w+)$/';
 
 		// Make sure a valid migration numbering type was set.
 		if ( ! in_array($this->_migration_type, array('sequential', 'timestamp')))
@@ -224,18 +224,13 @@ class CI_Migration {
 				return FALSE;
 			}
 
-			include $file;
+			include_once $file;
 			$class = 'Migration_'.ucfirst(strtolower($this->_get_migration_name(basename($file, '.php'))));
 
 			// Validate the migration file structure
-			if ( ! class_exists($class))
+			if ( ! class_exists($class, FALSE))
 			{
 				$this->_error_string = sprintf($this->lang->line('migration_class_doesnt_exist'), $class);
-				return FALSE;
-			}
-			elseif ( ! is_callable(array($class, $method)))
-			{
-				$this->_error_string = sprintf($this->lang->line('migration_missing_'.$method.'_method'), $class);
 				return FALSE;
 			}
 
@@ -247,8 +242,15 @@ class CI_Migration {
 				($method === 'down' && $number <= $current_version && $number > $target_version)
 			)
 			{
+				$instance = new $class();
+				if ( ! is_callable(array($instance, $method)))
+				{
+					$this->_error_string = sprintf($this->lang->line('migration_missing_'.$method.'_method'), $class);
+					return FALSE;
+				}
+
 				log_message('debug', 'Migrating '.$method.' from version '.$current_version.' to version '.$number);
-				call_user_func(array(new $class, $method));
+				call_user_func(array($instance, $method));
 				$current_version = $number;
 				$this->_update_version($current_version);
 			}

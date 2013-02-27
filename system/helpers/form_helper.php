@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -228,13 +228,10 @@ if ( ! function_exists('form_upload'))
 	 */
 	function form_upload($data = '', $value = '', $extra = '')
 	{
-		if ( ! is_array($data))
-		{
-			$data = array('name' => $data);
-		}
-
+		$defaults = array('type' => 'file', 'name' => '');
+		is_array($data) OR $data = array('name' => $data);
 		$data['type'] = 'file';
-		return form_input($data, $value, $extra);
+		return '<input '._parse_form_attributes($data, $defaults).$extra." />\n";
 	}
 }
 
@@ -813,7 +810,6 @@ if ( ! function_exists('set_radio'))
 }
 
 // ------------------------------------------------------------------------
-
 
 if ( ! function_exists('form_error'))
 {

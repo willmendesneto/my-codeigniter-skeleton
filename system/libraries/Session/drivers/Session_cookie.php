@@ -18,7 +18,7 @@
  *
  * @package		CodeIgniter
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2013, EllisLab, Inc. (http://ellislab.com/)
  * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -457,7 +457,7 @@ class CI_Session_cookie extends CI_Session_driver {
 			}
 
 			// No result? Kill it!
-			if ($query->num_rows() === 0)
+			if (empty($query) OR $query->num_rows() === 0)
 			{
 				$this->sess_destroy();
 				return FALSE;
@@ -601,6 +601,9 @@ class CI_Session_cookie extends CI_Session_driver {
 				// Serialize the custom data array so we can store it
 				$set['user_data'] = $this->_serialize($userdata);
 			}
+
+			// Reset query builder values.
+			$this->CI->db->reset_query();
 
 			// Run the update query
 			// Any time we change the session id, it gets updated immediately,
@@ -805,7 +808,7 @@ class CI_Session_cookie extends CI_Session_driver {
 	{
 		if (is_string($val))
 		{
-	 		$val= str_replace('{{slash}}', '\\', $val);
+	 		$val = str_replace('{{slash}}', '\\', $val);
 		}
 	}
 
