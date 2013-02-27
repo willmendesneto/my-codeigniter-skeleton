@@ -12,6 +12,7 @@
  *      'height' => '400'
  * );
  * echo form_fckeditor($data, $initial_value);
+ *
  * @param array $data
  * @param string $value
  * @return type
