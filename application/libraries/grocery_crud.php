@@ -126,8 +126,15 @@ class grocery_CRUD_Field_Types
 			{
 				$field_name = isset($field_object->field_name) ? $field_object->field_name : $field_object;
 
-				if(!isset($types[$field_name]))
+				if(!isset($types[$field_name]))//Doesn't exist in the database? Create it for the CRUD
 				{
+					$extras = false;
+					if($this->change_field_type !== null && isset($this->change_field_type[$field_name]))
+					{
+						$field_type = $this->change_field_type[$field_name];
+						$extras 	=  $field_type->extras;
+					}
+
 					$field_info = (object)array(
 						'name' => $field_name,
 						'crud_type' => $this->change_field_type !== null && isset($this->change_field_type[$field_name]) ?
@@ -136,7 +143,8 @@ class grocery_CRUD_Field_Types
 						'display_as' => isset($this->display_as[$field_name]) ?
 												$this->display_as[$field_name] :
 												ucfirst(str_replace("_"," ",$field_name)),
-						'required'	=> in_array($field_name,$this->required_fields) ? true : false
+						'required'	=> in_array($field_name,$this->required_fields) ? true : false,
+						'extras'	=> $extras
 					);
 
 					$types[$field_name] = $field_info;
@@ -148,8 +156,15 @@ class grocery_CRUD_Field_Types
 			{
 				$field_name = isset($field_object->field_name) ? $field_object->field_name : $field_object;
 
-				if(!isset($types[$field_name]))
+				if(!isset($types[$field_name]))//Doesn't exist in the database? Create it for the CRUD
 				{
+					$extras = false;
+					if($this->change_field_type !== null && isset($this->change_field_type[$field_name]))
+					{
+						$field_type = $this->change_field_type[$field_name];
+						$extras 	=  $field_type->extras;
+					}
+
 					$field_info = (object)array(
 						'name' => $field_name,
 						'crud_type' => $this->change_field_type !== null && isset($this->change_field_type[$field_name]) ?
@@ -158,7 +173,8 @@ class grocery_CRUD_Field_Types
 						'display_as' => isset($this->display_as[$field_name]) ?
 												$this->display_as[$field_name] :
 												ucfirst(str_replace("_"," ",$field_name)),
-						'required'	=> in_array($field_name,$this->required_fields) ? true : false
+						'required'	=> in_array($field_name,$this->required_fields) ? true : false,
+						'extras'	=> $extras
 					);
 
 					$types[$field_name] = $field_info;
@@ -232,8 +248,11 @@ class grocery_CRUD_Field_Types
 
 			break;
 			case 'true_false':
-				if(isset($this->default_true_false_text[$value]))
+				if(is_array($field_info->extras) && array_key_exists($value,$field_info->extras)) {
+					$value = $field_info->extras[$value];
+				} else if(isset($this->default_true_false_text[$value])) {
 					$value = $this->default_true_false_text[$value];
+				}
 			break;
 			case 'string':
 				$value = $this->character_limiter($value,$this->character_limiter,"...");
@@ -448,7 +467,7 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 		$ci = &get_instance();
 		$ci->load->model('grocery_CRUD_Model');
 
-		$this->basic_model = $ci->grocery_CRUD_Model;
+		$this->basic_model = new grocery_CRUD_Model();
 	}
 
 	protected function get_total_results()
@@ -638,6 +657,7 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 
 		$field_types = $this->get_field_types();
 		$required_fields = $this->required_fields;
+		$unique_fields = $this->_unique_fields;
 		$add_fields = $this->get_add_fields();
 
 		if(!empty($required_fields))
@@ -649,6 +669,32 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 				{
 					$this->set_rules( $field_name, $field_types[$field_name]->display_as, 'required');
 				}
+			}
+		}
+
+		/** Checking for unique fields. If the field value is not unique then
+		 * return a validation error straight away, if not continue... */
+		if(!empty($unique_fields))
+		{
+			$form_validation = $this->form_validation();
+
+			foreach($add_fields as $add_field)
+			{
+				$field_name = $add_field->field_name;
+				if(in_array( $field_name, $unique_fields) )
+				{
+					$form_validation->set_rules( $field_name,
+							$field_types[$field_name]->display_as,
+							'is_unique['.$this->basic_db_table.'.'.$field_name.']');
+				}
+			}
+
+			if(!$form_validation->run())
+			{
+				$validation_result->error_message = $form_validation->error_string();
+				$validation_result->error_fields = $form_validation->_error_array;
+
+				return $validation_result;
 			}
 		}
 
@@ -704,6 +750,7 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 
 		$field_types = $this->get_field_types();
 		$required_fields = $this->required_fields;
+		$unique_fields = $this->_unique_fields;
 		$edit_fields = $this->get_edit_fields();
 
 		if(!empty($required_fields))
@@ -715,6 +762,54 @@ class grocery_CRUD_Model_Driver extends grocery_CRUD_Field_Types
 				{
 					$this->set_rules( $field_name, $field_types[$field_name]->display_as, 'required');
 				}
+			}
+		}
+
+
+		/** Checking for unique fields. If the field value is not unique then
+		 * return a validation error straight away, if not continue... */
+		if(!empty($unique_fields))
+		{
+			$form_validation = $this->form_validation();
+
+			$form_validation_check = false;
+
+			foreach($edit_fields as $edit_field)
+			{
+				$field_name = $edit_field->field_name;
+				if(in_array( $field_name, $unique_fields) )
+				{
+					$state_info = $this->getStateInfo();
+					$primary_key = $this->get_primary_key();
+					$field_name_value = $_POST[$field_name];
+
+					$this->basic_model->where($primary_key,$state_info->primary_key);
+					$row = $this->basic_model->get_row();
+
+					if(!isset($row->$field_name)) {
+						throw new Exception("The field name doesn't exist in the database. ".
+								 			"Please use the unique fields only for fields ".
+											"that exist in the database");
+					}
+
+					$previous_field_name_value = $row->$field_name;
+
+					if(!empty($previous_field_name_value) && $previous_field_name_value != $field_name_value) {
+						$form_validation->set_rules( $field_name,
+								$field_types[$field_name]->display_as,
+								'is_unique['.$this->basic_db_table.'.'.$field_name.']');
+
+						$form_validation_check = true;
+					}
+				}
+			}
+
+			if($form_validation_check && !$form_validation->run())
+			{
+				$validation_result->error_message = $form_validation->error_string();
+				$validation_result->error_fields = $form_validation->_error_array;
+
+				return $validation_result;
 			}
 		}
 
@@ -1446,6 +1541,8 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 		if(!$ajax)
 		{
+			$this->_add_js_vars(array('dialog_forms' => $this->config->dialog_forms));
+
 			$data->list_view = $this->_theme_view('list.php',$data,true);
 			$this->_theme_view('list_template.php',$data);
 		}
@@ -1664,6 +1761,8 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		$data->fields 			= $this->get_add_fields();
 		$data->hidden_fields	= $this->get_add_hidden_fields();
 		$data->unset_back_to_list	= $this->unset_back_to_list;
+		$data->unique_hash			= $this->get_method_hash();
+		$data->is_ajax 			= $this->_is_ajax();
 
 		$this->_theme_view('add.php',$data);
 		$this->_inline_js("var js_date_format = '".$this->js_date_format."';");
@@ -1686,12 +1785,14 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		$data->update_url	= $this->getUpdateUrl($state_info);
 		$data->delete_url	= $this->getDeleteUrl($state_info);
 		$data->input_fields = $this->get_edit_input_fields($data->field_values);
+		$data->unique_hash			= $this->get_method_hash();
 
 		$data->fields 		= $this->get_edit_fields();
 		$data->hidden_fields	= $this->get_edit_hidden_fields();
 		$data->unset_back_to_list	= $this->unset_back_to_list;
 
 		$data->validation_url	= $this->getValidationUpdateUrl($state_info->primary_key);
+		$data->is_ajax 			= $this->_is_ajax();
 
 		$this->_theme_view('edit.php',$data);
 		$this->_inline_js("var js_date_format = '".$this->js_date_format."';");
@@ -1723,7 +1824,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		{
 			if(!empty($field_info->primary_key) && !$this->unset_edit)
 			{
-				return $this->l('insert_success_message')." <a href='".$this->getEditUrl($field_info->primary_key)."'>".$this->l('form_edit')." {$this->subject}</a> ";
+				return $this->l('insert_success_message')." <a class='go-to-edit-form' href='".$this->getEditUrl($field_info->primary_key)."'>".$this->l('form_edit')." {$this->subject}</a> ";
 			}
 			else
 			{
@@ -1749,10 +1850,14 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 			if(!$this->unset_back_to_list && !empty($insert_result) && !$this->unset_edit)
 			{
-				$success_message .= " <a href='".$this->getEditUrl($insert_result)."'>".$this->l('form_edit')." {$this->subject}</a> ".$this->l('form_or');
+				$success_message .= " <a class='go-to-edit-form' href='".$this->getEditUrl($insert_result)."'>".$this->l('form_edit')." {$this->subject}</a> ";
+
+				if (!$this->_is_ajax()) {
+					$success_message .= $this->l('form_or');
+				}
 			}
 
-			if(!$this->unset_back_to_list)
+			if(!$this->unset_back_to_list && !$this->_is_ajax())
 			{
 				$success_message .= " <a href='".$this->getListUrl()."'>".$this->l('form_go_back_to_list')."</a>";
 			}
@@ -1872,7 +1977,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 	{
 		$this->set_css($this->default_css_path.'/jquery_plugins/fancybox/jquery.fancybox.css');
 
-		$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.fancybox.pack.js');
+		$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.fancybox-1.3.4.js');
 		$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.easing-1.3.pack.js');
 	}
 
@@ -1948,7 +2053,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		else
 		{
 			$success_message = '<p>'.$this->l('update_success_message');
-			if(!$this->unset_back_to_list)
+			if(!$this->unset_back_to_list && !$this->_is_ajax())
 			{
 				$success_message .= " <a href='".$this->getListUrl()."'>".$this->l('form_go_back_to_list')."</a>";
 			}
@@ -1986,11 +2091,13 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 		$input = "<div class='pretty-radio-buttons'>";
 
+		$true_string = is_array($field_info->extras) && array_key_exists(1,$field_info->extras) ? $field_info->extras[1] : $this->default_true_false_text[1];
 		$checked = $value === '1' || ($value_is_null && $field_info->default === '1') ? "checked = 'checked'" : "";
-		$input .= "<label><input id='field-{$field_info->name}-true' class='radio-uniform'  type='radio' name='{$field_info->name}' value='1' $checked /> ".$this->default_true_false_text[1]."</label> ";
+		$input .= "<label><input id='field-{$field_info->name}-true' class='radio-uniform'  type='radio' name='{$field_info->name}' value='1' $checked /> ".$true_string."</label> ";
 
+		$false_string =  is_array($field_info->extras) && array_key_exists(0,$field_info->extras) ? $field_info->extras[0] : $this->default_true_false_text[0];
 		$checked = $value === '0' || ($value_is_null && $field_info->default === '0') ? "checked = 'checked'" : "";
-		$input .= "<label><input id='field-{$field_info->name}-false' class='radio-uniform' type='radio' name='{$field_info->name}' value='0' $checked /> ".$this->default_true_false_text[0]."</label>";
+		$input .= "<label><input id='field-{$field_info->name}-false' class='radio-uniform' type='radio' name='{$field_info->name}' value='0' $checked /> ".$false_string."</label>";
 
 		$input .= "</div>";
 
@@ -2008,7 +2115,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		return $input;
 	}
 
-	protected function get_text_input($field_info, $value)
+	protected function get_text_input($field_info,$value)
 	{
 		if($field_info->extras == 'text_editor')
 		{
@@ -2552,8 +2659,8 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 	protected function _get_ajax_results()
 	{
 		//This is a $_POST request rather that $_GET request , because
-		//Codeigniter doesn't like the $_GET requests!
-		if (array_key_exists('is_ajax', $_POST) && $_POST['is_ajax'] == 'true') {
+		//Codeigniter doesn't like the $_GET requests so much!
+		if ($this->_is_ajax()) {
 			@ob_end_clean();
 			$results= (object)array(
 					'output' => $this->views_as_string,
@@ -2567,6 +2674,11 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 			die;
 		}
 		//else just continue
+	}
+
+	protected function _is_ajax()
+	{
+		return array_key_exists('is_ajax', $_POST) && $_POST['is_ajax'] == 'true' ? true: false;
 	}
 
 	protected function _theme_view($view, $vars = array(), $return = FALSE)
@@ -2697,31 +2809,40 @@ class grocery_CRUD_States extends grocery_CRUD_Layout
 		return $state_code;
 	}
 
-	protected function state_url($url = '')
+	protected function state_url($url = '', $is_list_page = false)
 	{
-		$ci = &get_instance();
+		//Easy scenario, we had set the crud_url_path
+		if (!empty($this->crud_url_path)) {
+			$state_url = !empty($this->list_url_path) && $is_list_page?
+							$this->list_url_path :
+							$this->crud_url_path.'/'.$url ;
+		} else {
+			//Complicated scenario. The crud_url_path is not specified so we are
+			//trying to understand what is going on from the URL.
+			$ci = &get_instance();
 
-		$segment_object = $this->get_state_info_from_url();
-		$method_name = $this->get_method_name();
-		$segment_position = $segment_object->segment_position;
+			$segment_object = $this->get_state_info_from_url();
+			$method_name = $this->get_method_name();
+			$segment_position = $segment_object->segment_position;
 
-		$state_url_array = array();
+			$state_url_array = array();
 
-    if( sizeof($ci->uri->segments) > 0 ) {
-      foreach($ci->uri->segments as $num => $value)
-      {
-        $state_url_array[$num] = $value;
-        if($num == ($segment_position - 1))
-          break;
-      }
+		    if( sizeof($ci->uri->segments) > 0 ) {
+		      foreach($ci->uri->segments as $num => $value)
+		      {
+		        $state_url_array[$num] = $value;
+		        if($num == ($segment_position - 1))
+		          break;
+		      }
 
-      if( $method_name == 'index' && !in_array( 'index', $state_url_array ) ) //there is a scenario that you don't have the index to your url
-        $state_url_array[$num+1] = 'index';
-    }
+		      if( $method_name == 'index' && !in_array( 'index', $state_url_array ) ) //there is a scenario that you don't have the index to your url
+		        $state_url_array[$num+1] = 'index';
+		    }
 
-		$state_url = implode('/',$state_url_array).'/'.$url;
+			$state_url =  site_url(implode('/',$state_url_array).'/'.$url);
+		}
 
-		return site_url($state_url);
+		return $state_url;
 	}
 
 	protected function get_state_info_from_url()
@@ -2759,7 +2880,9 @@ class grocery_CRUD_States extends grocery_CRUD_Layout
 		$state_info = $this->get_state_info_from_url();
 		$extra_values = $ci->uri->segment($state_info->segment_position - 1) != $this->get_method_name() ? $ci->uri->segment($state_info->segment_position - 1) : '';
 
-		return md5($this->get_controller_name().$this->get_method_name().$extra_values);
+		return $this->crud_url_path !== null
+					? md5($this->crud_url_path)
+					: md5($this->get_controller_name().$this->get_method_name().$extra_values);
 	}
 
 	protected function get_method_name()
@@ -2781,7 +2904,7 @@ class grocery_CRUD_States extends grocery_CRUD_Layout
 
 	protected function getListUrl()
 	{
-		return $this->state_url('');
+		return $this->state_url('',true);
 	}
 
 	protected function getAjaxListUrl()
@@ -2851,9 +2974,9 @@ class grocery_CRUD_States extends grocery_CRUD_Layout
 	protected function getListSuccessUrl($primary_key = null)
 	{
 		if(empty($primary_key))
-			return $this->state_url('success');
+			return $this->state_url('success',true);
 		else
-			return $this->state_url('success/'.$primary_key);
+			return $this->state_url('success/'.$primary_key,true);
 	}
 
 	protected function getUploadUrl($field_name)
@@ -3066,9 +3189,9 @@ class grocery_CRUD extends grocery_CRUD_States
 	 */
 	const	VERSION = "1.3.3";
 
-	const	JQUERY 			= "jquery-1.8.3.min.js";
-	const	JQUERY_UI_JS 	= "jquery-ui-1.9.1.custom.min.js";
-	const	JQUERY_UI_CSS 	= "jquery-ui-1.9.1.custom.min.css";
+	const	JQUERY 			= "jquery-1.9.1.min.js";
+	const	JQUERY_UI_JS 	= "jquery-ui-1.10.1.custom.min.js";
+	const	JQUERY_UI_CSS 	= "jquery-ui-1.10.1.custom.min.css";
 
 	private $state_code 			= null;
 	private $state_info 			= null;
@@ -3104,6 +3227,7 @@ class grocery_CRUD extends grocery_CRUD_States
 	protected $or_having 			= array();
 	protected $limit 				= null;
 	protected $required_fields		= array();
+	protected $_unique_fields 			= array();
 	protected $validation_rules		= array();
 	protected $relation				= array();
 	protected $relation_n_n			= array();
@@ -3113,6 +3237,8 @@ class grocery_CRUD extends grocery_CRUD_States
 	protected $form_validation		= null;
 	protected $change_field_type	= null;
 	protected $primary_keys			= array();
+	protected $crud_url_path		= null;
+	protected $list_url_path		= null;
 
 	/* The unsetters */
 	protected $unset_texteditor		= array();
@@ -3907,13 +4033,13 @@ class grocery_CRUD extends grocery_CRUD_States
 		$this->config->default_text_editor	= $ci->config->item('grocery_crud_default_text_editor');
 		$this->config->text_editor_type		= $ci->config->item('grocery_crud_text_editor_type');
 		$this->config->character_limiter	= $ci->config->item('grocery_crud_character_limiter');
+		$this->config->dialog_forms			= $ci->config->item('grocery_crud_dialog_forms');
 
 		/** Initialize default paths */
 		$this->default_javascript_path				= $this->default_assets_path.'/js';
 		$this->default_css_path						= $this->default_assets_path.'/css';
 		$this->default_texteditor_path 				= $this->default_assets_path.'/texteditor';
 		$this->default_theme_path					= $this->default_assets_path.'/themes';
-
 
 		$this->character_limiter = $this->config->character_limiter;
 
@@ -4466,6 +4592,25 @@ class grocery_CRUD extends grocery_CRUD_States
 	}
 
 	/**
+	 * Add the fields that they are as UNIQUE in the database structure
+	 *
+	 * @return grocery_CRUD
+	 */
+	public function unique_fields()
+	{
+		$args = func_get_args();
+
+		if(isset($args[0]) && is_array($args[0]))
+		{
+			$args = $args[0];
+		}
+
+		$this->_unique_fields = $args;
+
+		return $this;
+	}
+
+	/**
 	 *
 	 * Sets the basic database table that we will get our data.
 	 * @param string $table_name
@@ -4486,6 +4631,35 @@ class grocery_CRUD extends grocery_CRUD_States
 			throw new Exception('The table name cannot be empty.', 2);
 			die();
 		}
+
+		return $this;
+	}
+
+	/**
+	 * Set a full URL path to this method.
+	 *
+	 * This method is useful when the path is not specified correctly.
+	 * Especially when we are using routes.
+	 * For example:
+	 * Let's say we have the path http://www.example.com/ however the original url path is
+	 * http://www.example.com/example/index . We have to specify the url so we can have
+	 * all the CRUD operations correctly.
+	 * The url path has to be set from this method like this:
+	 * <code>
+	 * 		$crud->set_crud_url_path(site_url('example/index'));
+	 * </code>
+	 *
+	 * @param string $crud_url_path
+	 * @param string $list_url_path
+	 * @return grocery_CRUD
+	 */
+	public function set_crud_url_path($crud_url_path, $list_url_path = null)
+	{
+		$this->crud_url_path = $crud_url_path;
+
+		//If the list_url_path is empty so we are guessing that the list_url_path
+		//will be the same with crud_url_path
+		$this->list_url_path = !empty($list_url_path) ? $list_url_path : $crud_url_path;
 
 		return $this;
 	}
@@ -4525,7 +4699,7 @@ class grocery_CRUD extends grocery_CRUD_States
 			'link_url'		=> $link_url,
 			'css_class' 	=> $css_class,
 			'url_callback' 	=> $url_callback,
-			'url_has_http'	=> substr($link_url,0,7) == 'http://' ? true : false
+			'url_has_http'	=> substr($link_url,0,7) == 'http://' || substr($link_url,0,8) == 'https://' ? true : false
 		);
 
 		return $this;
@@ -4765,7 +4939,26 @@ class UploadHandler
 
     private function has_error($uploaded_file, $file, $error) {
         if ($error) {
-            return $error;
+			switch($error) {
+				case UPLOAD_ERR_INI_SIZE:
+					return 'The uploaded file exceeds the upload_max_filesize directive in php.ini.';
+					break;
+				case UPLOAD_ERR_PARTIAL:
+					return 'The uploaded file was only partially uploaded.';
+					break;
+				case UPLOAD_ERR_NO_FILE:
+					return 'No file was uploaded.';
+					break;
+				case UPLOAD_ERR_CANT_WRITE:
+					return 'Failed to write file to disk.';
+					break;
+				case UPLOAD_ERR_EXTENSION:
+					return 'File upload stopped by extension.';
+					break;
+				default:
+					return $error;
+					break;
+			}
         }
         if (!preg_match($this->options['accept_file_types'], $file->name)) {
             return 'acceptFileTypes';

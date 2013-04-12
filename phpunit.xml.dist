@@ -12,9 +12,9 @@
     syntaxCheck="false"
     cacheTokens="true"
     verbose="false"
-    bootstrap="tests/Bootstrap.php">
+    bootstrap="tests/bootstrap.php">
     <testsuites>
-        <testsuite name="CITools Test Suite">
+        <testsuite name="Utopia Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

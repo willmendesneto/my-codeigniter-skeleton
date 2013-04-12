@@ -82,7 +82,7 @@ var alert_message = function(type_message, text_message){
 	$('html, body').animate({
 		scrollTop:0
 	}, 600);
-	$("#ajax-loading").fadeOut('fast');
+	$("#ajax-loading").addClass('hide');
 	window.setTimeout( function(){
         $('.alert-'+type_message).slideUp();
     }, 7000);

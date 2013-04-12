@@ -64,6 +64,11 @@ class CI_Exceptions {
 		E_STRICT		=>	'Runtime Notice'
 	);
 
+	/**
+	 * Class constructor
+	 *
+	 * @return	void
+	 */
 	public function __construct()
 	{
 		$this->ob_level = ob_get_level();
@@ -112,7 +117,7 @@ class CI_Exceptions {
 		}
 
 		echo $this->show_error($heading, $message, 'error_404', 404);
-		exit;
+		exit(EXIT_UNKNOWN_FILE);
 	}
 
 	// --------------------------------------------------------------------

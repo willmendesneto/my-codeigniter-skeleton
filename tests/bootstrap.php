@@ -102,6 +102,7 @@ else
 error_reporting(-1);
 
 
+
 /*
  * --------------------------------------------------------------------
  * REQUIRE COMPOSER FOLDERS
@@ -109,9 +110,7 @@ error_reporting(-1);
  *
  */
 
-if( is_dir(__DIR__ . DS . 'vendor' . DS) && file_exists(__DIR__ . DS . 'vendor' . DS . 'autoload.php')){
-    require_once __DIR__ . DS . 'vendor' . DS . 'autoload.php';
-}
+require_once BASEPATH . '/../vendor' . DS . 'autoload.php';
 
 /*
  * --------------------------------------------------------------------

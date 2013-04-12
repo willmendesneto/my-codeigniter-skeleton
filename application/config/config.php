@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 /**
  * CodeIgniter
  *
@@ -40,7 +39,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://codeigniter.dev/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
@@ -273,7 +272,7 @@ $config['cache_path'] = '';
 | http://codeigniter.com/user_guide/libraries/sessions.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'y43B9s52XG826pTtCX7WL62YGKfe7xef';
 
 /*
 |--------------------------------------------------------------------------
@@ -375,7 +374,7 @@ $config['csrf_exclude_uris'] = array();
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-$config['compress_output'] = FALSE;
+$config['compress_output'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -387,7 +386,7 @@ $config['compress_output'] = FALSE;
 | code less readable.
 |
 */
-$config['minify_output'] = FALSE;
+$config['minify_output'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -413,7 +412,7 @@ $config['time_reference'] = 'local';
 | in your view files.  Options are TRUE or FALSE (boolean)
 |
 */
-$config['rewrite_short_tags'] = FALSE;
+$config['rewrite_short_tags'] = TRUE;
 
 
 /*

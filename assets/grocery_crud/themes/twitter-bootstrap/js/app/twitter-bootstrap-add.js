@@ -85,7 +85,7 @@ var alert_message = function(type_message, text_message){
 	window.setTimeout( function(){
         $('.alert-'+type_message).slideUp();
     }, 7000);
-	$("#ajax-loading").fadeOut('fast');
+	$("#ajax-loading").addClass('hide');
 	return false;
 };
 

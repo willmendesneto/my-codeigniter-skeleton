@@ -1,22 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('Acesso direto n&atilde;o permitido');
+<?php
 
 class MY_Exceptions extends CI_Exceptions {
-
-    /**
-     * Codeigniter Input Class
-     *
-     * @package default
-     */
-    protected $_IN;
-
-    /**
-     * Class constructor
-     *
-     * @return  void
-     */
-    public function __construct(){
-        $this->_IN =& load_class('Input', 'core');
-    }
 
     /**
      * General Error Page
@@ -33,21 +17,24 @@ class MY_Exceptions extends CI_Exceptions {
      */
     public function show_error($heading, $message, $template = 'error_general', $status_code = 500)
     {
-        if($this->_IN->is_cli_request()){
+        set_status_header($status_code);
+
+        $message = '<p>'.implode('</p><p>', is_array($message) ? $message : array($message)).'</p>';
+
+        if (substr(php_sapi_name(), 0, 3) == 'cli')
+        {
             $message = str_replace(array('<p>', '</p>'), '', $message);
             echo <<<EOT
 \n{$heading}\n
 Message: {$message}\n
 EOT;
             return;
-
         }
 
-        parent::show_error($heading, $message, $template, $status_code);
+        parent::show_error($heading, $message, $template = 'error_general', $status_code = 500);
     }
-
     /**
-     * Native PHP error handler, verifying CLI ENVIRONMENT
+     * Native PHP error handler
      *
      * @param   int $severity   Error level
      * @param   string  $message    Error message
@@ -60,8 +47,8 @@ EOT;
         $severity = isset($this->levels[$severity]) ? $this->levels[$severity] : $severity;
         $filepath = str_replace('\\', '/', $filepath);
 
-        //  Verification CLI Requests (for unit test)
-        if($this->_IN->is_cli_request())
+        //  CLI Verification (ENVIRONMENT == 'testing')
+        if (substr(php_sapi_name(), 0, 3) == 'cli')
         {
             echo <<<EOT
 \nA PHP Error was encountered\n
@@ -77,6 +64,3 @@ EOT;
     }
 
 }
-
-/* End of file MY_Exceptions.php */
-/* Location: ./application/core/MY_Exceptions.php */
