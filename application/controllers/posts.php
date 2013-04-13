@@ -14,7 +14,7 @@ class Posts extends CI_Controller
 
             $this->grocery_crud->set_table('posts')
                                 ->set_subject('Posts')
-                                ->columns('post_id', 'title', 'create_date');
+                                ->columns('id', 'title', 'create_date');
 
             $output = $this->grocery_crud->render();
             $this->load->view('posts/example', $output);

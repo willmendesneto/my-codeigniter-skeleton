@@ -15,6 +15,12 @@ class Migration_Create_posts_table extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => '100',
 			),
+			'body' => array(
+				'type' => 'TEXT'
+			),
+			'create_date' => array(
+				'type' => 'DATETIME'
+			),
 		));
 	    $this->dbforge->add_key('id', TRUE);
 		$this->dbforge->create_table('posts');
