@@ -1480,7 +1480,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 	protected function set_basic_Layout()
 	{
-		if(!file_exists($this->theme_path.$this->theme.'/views/list_template.php'))
+		if(!file_exists(dirname(BASEPATH . '../../').'/'.$this->theme_path.$this->theme.'/views/list_template.php'))
 		{
 			throw new Exception('The template does not exist. Please check your files and try again.', 12);
 			die();
@@ -1543,7 +1543,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		{
 			$this->_add_js_vars(array('dialog_forms' => $this->config->dialog_forms));
 
-			$data->list_view = $this->_theme_view('list.php',$data,true);
+			$data->list_view = $this->_theme_view('list.php', $data, true);
 			$this->_theme_view('list_template.php',$data);
 		}
 		else
@@ -2162,7 +2162,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 		if($this->language !== 'english')
 		{
-			include($this->default_config_path.'/language_alias.php');
+			include(dirname(BASEPATH .'../../') . '/' .$this->default_config_path.'/language_alias.php');
 			if(array_key_exists($this->language, $language_alias))
 			{
 				$i18n_date_js_file = $this->default_javascript_path.'/jquery_plugins/ui/i18n/datepicker/jquery.ui.datepicker-'.$language_alias[$this->language].'.js';
@@ -2222,7 +2222,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 		if($this->language !== 'english')
 		{
-			include($this->default_config_path.'/language_alias.php');
+			include(dirname(BASEPATH .'../../') . '/' .$this->default_config_path.'/language_alias.php');
 			if(array_key_exists($this->language, $language_alias))
 			{
 				$i18n_date_js_file = $this->default_javascript_path.'/jquery_plugins/ui/i18n/datepicker/jquery.ui.datepicker-'.$language_alias[$this->language].'.js';
@@ -2400,7 +2400,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
 			if($this->language !== 'english')
 			{
-				include($this->default_config_path.'/language_alias.php');
+				include(dirname(BASEPATH .'../../') . '/' .$this->default_config_path.'/language_alias.php');
 				if(array_key_exists($this->language, $language_alias))
 				{
 					$i18n_date_js_file = $this->default_javascript_path.'/jquery_plugins/ui/i18n/multiselect/ui-multiselect-'.$language_alias[$this->language].'.js';
@@ -2643,10 +2643,14 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 	protected function setThemeBasics()
 	{
 		$this->theme_path = $this->default_theme_path;
-		if(substr($this->theme_path,-1) != '/')
-			$this->theme_path = $this->theme_path.'/';
+		if(strpos($this->default_theme_path, '/themes') === FALSE and (substr(php_sapi_name(), 0, 3) == 'cli' and ENVIRONMENT === 'testing')){
+			$this->theme_path .= '/themes';
+		}
+		if(substr($this->theme_path, -1) != '/'){
+			$this->theme_path .= '/';
+		}
 
-		include($this->theme_path.$this->theme.'/config.php');
+		include(dirname(BASEPATH .'../../') . '/' . $this->theme_path . $this->theme . '/config.php');
 
 		$this->theme_config = $config;
 	}
@@ -2690,7 +2694,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 		$ext = pathinfo($view, PATHINFO_EXTENSION);
 		$file = ($ext == '') ? $view.'.php' : $view;
 
-		$view_file = $this->theme_path.$this->theme.'/views/';
+		$view_file = dirname(BASEPATH . '../../') . '/' . $this->theme_path.$this->theme.'/views/';
 
 		if (file_exists($view_file.$file))
 		{
@@ -3687,7 +3691,8 @@ class grocery_CRUD extends grocery_CRUD_States
 		{
 			$this->language = strtolower($this->config->default_language);
 		}
-		include($this->default_language_path.'/'.$this->language.'.php');
+
+		include(dirname(BASEPATH .'../../') . '/' .$this->default_language_path.'/'.$this->language.'.php');
 
 		foreach($lang as $handle => $lang_string)
 			if(!isset($this->lang_strings[$handle]))
@@ -5009,7 +5014,7 @@ class UploadHandler
 
     private function _transliterate_characters($file_name)
 	{
-		include($this->default_config_path.'/translit_chars.php');
+		include(dirname(BASEPATH .'../../') . '/' .$this->default_config_path.'/translit_chars.php');
 		if ( ! isset($translit_characters))
 		{
 			return preg_replace("/([^a-zA-Z0-9\.\-\_]+?){1}/i", '-', $file_name);
