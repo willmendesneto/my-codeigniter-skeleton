@@ -1,6 +1,6 @@
 <?php   defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Posts extends CI_Controller
+class Posts extends MY_Controller
 {
     public function __construct()
     {
@@ -8,6 +8,10 @@ class Posts extends CI_Controller
         $this->grocery_crud->set_theme('twitter-bootstrap');
     }
 
+    /**
+     * Run the view using Grocery CRUD
+     * @return type
+     */
     public function index()
     {
         try{
@@ -22,6 +26,15 @@ class Posts extends CI_Controller
         }catch(Exception $e){
             show_error($e->getMessage().' --- '.$e->getTraceAsString());
         }
+    }
+
+    /**
+     * Run the view using blade library
+     * @return type
+     */
+    public function blade()
+    {
+        $this->blade->render('home.index');
     }
 
 }

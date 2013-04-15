@@ -1,0 +1,7 @@
+a:3:{s:4:"time";i:1366044289;s:3:"ttl";i:3600;s:4:"data";s:136:"
+
+<?php $this->_section_start('container'); ?>
+	<h2>About</h2>
+<?php $this->_section_end(); ?>
+<?php echo $this->_include('master'); ?>
+";}

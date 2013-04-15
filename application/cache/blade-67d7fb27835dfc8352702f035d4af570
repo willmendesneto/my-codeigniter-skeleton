@@ -1,0 +1,11 @@
+a:3:{s:4:"time";i:1366044558;s:3:"ttl";i:3600;s:4:"data";s:397:"
+
+<?php $this->_section_start('container'); ?>
+	<h1>My Awesome Url Shortener</h1>
+	<?php echo  form_open('posts/blade', 'id="posts_blade"', array('custom' => 'teste')); ; ?>
+		<?php echo  form_input('url'); ; ?>
+        <?php echo  form_checkbox('noticias', 'noticias', 'id="noticias"') ; ?>
+	<?php echo  form_close(); ; ?>
+<?php $this->_section_end(); ?>
+<?php echo $this->_include('master'); ?>
+";}
