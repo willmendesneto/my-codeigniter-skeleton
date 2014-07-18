@@ -174,7 +174,6 @@ class Blade
         return $this;
     }
 
-
     /**
      * Outputs template content. You can also pass an array of global data.
      * If $return is TRUE then returns the template as a string.
@@ -197,7 +196,26 @@ class Blade
 
         if ( ! $return)
         {
+            // Is minify requested?
+            if ($this->config->item('minify_output') === TRUE)
+            {
+                $content = $this->output->minify($content);
+            }
+
             $this->output->append_output($content);
+        }
+
+        // Do we need to generate profile data?
+        // If so, load the Profile class and run it.
+        if ($this->output->enable_profiler === TRUE)
+        {
+            $this->load->library('profiler');
+            if ( ! empty($this->output->_profiler_sections))
+            {
+                $this->profiler->set_sections($this->output->_profiler_sections);
+            }
+            $this->output->append_output($this->profiler->run());
+
         }
 
         return $content;
@@ -249,23 +267,6 @@ class Blade
         $view_path = $this->_find_view($template);
         $cache_id = 'blade-' . md5($view_path);
 
-        // Test if a compiled version exists in the cache
-        if ($compiled = $this->cache->file->get($cache_id))
-        {
-            // In production, avoid to test if the template was updated
-            if (ENVIRONMENT == 'production')
-            {
-                return $compiled;
-            }
-
-            // Return cache version if the template was not updated
-            $meta = $this->cache->file->get_metadata($cache_id);
-            if ($meta['mtime'] > filemtime($view_path))
-            {
-                return $compiled;
-            }
-        }
-
         // Template content
         $template = file_get_contents($view_path);
 
@@ -277,7 +278,7 @@ class Blade
         }
 
         // Store compiled version in the cache
-        $this->cache->file->save($cache_id, $template, $this->cache_time);
+        //$this->cache->file->save($cache_id, $template, $this->cache_time);
 
         // Return compiled template
         return $template;
@@ -578,7 +579,7 @@ class Blade
      */
     protected function _compile_includes($value)
     {
-        $pattern = static::matcher('include');
+        $pattern = $this->matcher('include');
 
         return preg_replace($pattern, '$1<?php echo $this->_include$2; ?>', $value);
     }
